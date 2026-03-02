@@ -13,7 +13,7 @@ const BASE = getBackendBaseUrl();
 export interface SubmitResponse {
   message: string;
   data: {
-    _id: string;          // save this — needed for /payment/success
+    _id: string; // save this — needed for /payment/success
     name: string;
     city: string;
     dogsname: string;
@@ -33,7 +33,7 @@ export interface PaymentSuccessResponse {
     _id: string;
     cohortNumber: number;
     cohortPosition: number;
-    referralCode: string;   // user's own new code to share
+    referralCode: string; // user's own new code to share
     tier: "starter" | "founding";
     amount: number;
   };
@@ -47,13 +47,14 @@ export interface ActivityEntry {
   position: number;
   tier: "starter" | "founding";
   amount: number;
-  claimedAt: string;        // ISO — convert with timeAgo()
+  claimedAt: string; // ISO — convert with timeAgo()
 }
 
 export interface CohortDog {
   dogName: string;
-  dogPhoto: string;         // Cloudinary URL
+  dogPhoto: string; // Cloudinary URL
   position: number;
+  tier?: "starter" | "founding";
 }
 
 export interface CohortsData {
@@ -67,7 +68,7 @@ export interface SpotsStatus {
   total: number;
   remaining: number;
   totalPaidOverall: number;
-  lastClaimedAt: string;    // ISO — convert with timeAgo()
+  lastClaimedAt: string; // ISO — convert with timeAgo()
 }
 
 export interface ReferralValidationResponse {
@@ -83,12 +84,12 @@ export interface ReferralValidationResponse {
 // ── Utility: ISO timestamp → "X mins ago" ────────────────────
 export function timeAgo(iso: string): string {
   if (!iso) return "";
-  const diff  = Date.now() - new Date(iso).getTime();
-  const mins  = Math.floor(diff / 60_000);
+  const diff = Date.now() - new Date(iso).getTime();
+  const mins = Math.floor(diff / 60_000);
   const hours = Math.floor(diff / 3_600_000);
-  const days  = Math.floor(diff / 86_400_000);
-  if (mins  < 1)  return "just now";
-  if (mins  < 60) return `${mins} min${mins  === 1 ? "" : "s"} ago`;
+  const days = Math.floor(diff / 86_400_000);
+  if (mins < 1) return "just now";
+  if (mins < 60) return `${mins} min${mins === 1 ? "" : "s"} ago`;
   if (hours < 24) return `${hours} hr${hours === 1 ? "" : "s"} ago`;
   return `${days} day${days === 1 ? "" : "s"} ago`;
 }
@@ -122,7 +123,9 @@ export async function confirmPayment(payload: {
   });
   if (!res.ok) {
     const err = await res.json().catch(() => ({}));
-    throw new Error(err.message || "Payment confirmation failed. Please contact support.");
+    throw new Error(
+      err.message || "Payment confirmation failed. Please contact support.",
+    );
   }
   return res.json();
 }
@@ -136,7 +139,9 @@ export async function validateReferralCode(
   );
   if (!res.ok) {
     const err = await res.json().catch(() => ({}));
-    throw new Error(err.error || err.message || "Failed to validate referral code.");
+    throw new Error(
+      err.error || err.message || "Failed to validate referral code.",
+    );
   }
   return res.json();
 }
@@ -170,8 +175,12 @@ export async function fetchCohorts(): Promise<CohortsData> {
 // ── 5. GET /spots/status ──────────────────────────────────────
 export async function fetchSpotsStatus(): Promise<SpotsStatus> {
   const fallback: SpotsStatus = {
-    currentCohortNumber: 1, claimed: 0, total: 20,
-    remaining: 20, totalPaidOverall: 0, lastClaimedAt: "",
+    currentCohortNumber: 1,
+    claimed: 0,
+    total: 20,
+    remaining: 20,
+    totalPaidOverall: 0,
+    lastClaimedAt: "",
   };
   try {
     const res = await fetch(`${BASE}/spots/status`, { cache: "no-store" });

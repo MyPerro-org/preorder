@@ -103,9 +103,9 @@ export default function Hero({
         </h1>
 
         <p className="text-[14px] sm:text-[15px] text-white/45 font-light leading-[1.85] max-w-[420px] mb-8 sm:mb-10">
-          India's first AI-powered GPS collar with real-time tracking and
-          intelligent geo-fencing. The Founding Pack unlocks exclusive pricing
-          and limited perks.
+          India's first GPS collar with real-time tracking and intelligent
+          geo-fencing. The Founding Pack unlocks exclusive pricing and limited
+          perks.
         </p>
 
         {/* CTA */}
@@ -129,12 +129,15 @@ export default function Hero({
         </div>
 
         {mounted && (
-          <p className="mt-6 text-[12px] text-white/20 font-light">
-            Pack Status
-            <span className="ml-2 text-white/40">
+          <div className="mt-6 flex items-center gap-3">
+            <span className="text-[11px] font-semibold tracking-[2px] uppercase text-white/20">
+              Pack Status
+            </span>
+            <span className="w-1 h-1 rounded-full bg-white/20" />
+            <span className="text-[12px] text-[#E8622A] font-light">
               {claimed} / {total} claimed
             </span>
-          </p>
+          </div>
         )}
       </div>
     </section>

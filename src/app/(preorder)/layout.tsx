@@ -13,7 +13,7 @@ const playfair = Playfair_Display({
 export const metadata: Metadata = {
   title: "Founding Pack ",
   description:
-    "Reserve your MyPerro smart collar. India's first AI-powered GPS pet collar.",
+    "Reserve your MyPerro smart collar. India's first GPS pet collar.",
 };
 
 export default function PreorderLayout({

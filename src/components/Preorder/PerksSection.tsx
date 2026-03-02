@@ -18,7 +18,7 @@ export default function PerksSection() {
     {
       n: "PERK 02",
       title: "Activity Insights",
-      desc: "Track walks, rest, play. Know if your dog is getting enough movement, or sleeping more than usual.",
+      desc: "Know if your dog is getting enough movement, or sleeping more than usual.",
     },
     {
       n: "PERK 03",
@@ -87,9 +87,6 @@ export default function PerksSection() {
                 sends you an alert before you notice they're gone, and maps
                 every walk with quiet intelligence.
               </p>
-              <p className="text-[13px] text-white/22 font-light mb-8 sm:mb-10">
-                No subscription lock-in. No bloated app. Just clarity.
-              </p>
 
               {/* Specs */}
               <div className="flex flex-col">
@@ -132,7 +129,7 @@ export default function PerksSection() {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
             {/* Left — pricing card */}
-            <div className="bg-[#111] rounded-2xl p-8 sm:p-10 flex flex-col justify-between">
+            <div className="bg-[#111] rounded-2xl p-8 sm:p-10 flex flex-col">
               <div>
                 <p className="text-[13px] text-white/20 line-through tracking-widest mb-3">
                   ₹6,999 RETAIL
@@ -149,17 +146,17 @@ export default function PerksSection() {
                   </span>
                 </div>
                 <p
-                  className="text-[14px] text-[#E8622A] font-light font-playfair mb-5 sm:mb-6"
+                  className="text-[14px] text-[#E8622A] font-light font-playfair mb-3"
                   style={{ fontStyle: "italic" }}
                 >
                   You save ₹2,000 — forever.
                 </p>
-                <p className="text-[13px] text-white/35 font-light leading-[1.85] mb-7 sm:mb-8">
+                <p className="text-[13px] text-white/35 font-light leading-[1.85] mb-2">
                   Founding members lock in the lowest price MyPerro will ever be
                   offered. As the product evolves, your price stays unchanged.
                 </p>
               </div>
-              <ul className="flex flex-col gap-3">
+              <ul className="flex flex-col gap-3 mt-4">
                 {highlights.map((line) => (
                   <li
                     key={line}
@@ -237,16 +234,16 @@ export default function PerksSection() {
                 key={s.label}
                 className={`py-8 sm:py-10 px-4 sm:px-8 ${i % 2 !== 0 || i > 0 ? "border-l border-white/[0.05]" : ""} ${i >= 2 ? "border-t border-white/[0.05] md:border-t-0" : ""} ${i > 0 && i < 2 ? "" : ""}`}
               >
-                <div className="flex items-start gap-0 mb-3 sm:mb-4">
+                <div className="mb-3 sm:mb-4">
                   <span
-                    className="font-playfair font-normal text-white leading-none"
+                    className="font-playfair font-normal text-white"
                     style={{ fontSize: "clamp(36px, 5vw, 64px)" }}
                   >
                     {s.num}
                   </span>
                   <span
-                    className="font-playfair text-[#E8622A] leading-none mt-1"
-                    style={{ fontSize: "clamp(22px, 3vw, 40px)" }}
+                    className="font-playfair text-[#E8622A]"
+                    style={{ fontSize: "clamp(36px, 5vw, 64px)" }}
                   >
                     {s.suffix}
                   </span>

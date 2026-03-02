@@ -193,7 +193,7 @@ export default function PreorderPage() {
           <img
             src="/myperro-logo.png"
             alt="MyPerro"
-            className="h-7 sm:h-9 opacity-85"
+            className="h-7 sm:h-11 opacity-85"
           />
 
           {/* Desktop nav links */}

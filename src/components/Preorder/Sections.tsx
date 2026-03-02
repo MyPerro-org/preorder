@@ -27,13 +27,17 @@ function CircleGrid({
         const position = i + 1;
         const dog = dogs.find((d) => d.position === position);
         const isTaken = !!dog;
+        const isFounding = dog?.tier === "founding";
         const isYours = position === nextPosition && !isTaken;
         const initials = dog?.dogName
           ? dog.dogName.slice(0, 2).toUpperCase()
           : null;
 
         return (
-          <div key={i} className="group relative">
+          <div
+            key={i}
+            className="group relative flex flex-col items-center gap-1"
+          >
             <div
               onClick={isYours ? onClaim : undefined}
               className={`
@@ -41,7 +45,9 @@ function CircleGrid({
                 flex items-center justify-center transition-all duration-300
                 ${
                   isTaken
-                    ? "bg-[#2a1508] border-2 border-[#E8622A]/70"
+                    ? isFounding
+                      ? "bg-[#1a1000] border-[3px] border-[#EFBF04]"
+                      : "bg-[#2a1508] border-[3px] border-[#E8622A]"
                     : isYours
                       ? "bg-transparent border-2 border-dashed border-[#E8622A]/50 po-spot-pulse cursor-pointer hover:border-[#E8622A]"
                       : "bg-transparent border border-dashed border-white/[0.1]"
@@ -53,10 +59,12 @@ function CircleGrid({
                   <img
                     src={dog.dogPhoto}
                     alt={dog.dogName}
-                    className="w-full h-full rounded-full object-cover"
+                    className="w-full h-full rounded-full object-cover object-top"
                   />
                 ) : (
-                  <span className="font-playfair text-[#E8622A] font-normal text-[16px] sm:text-[18px]">
+                  <span
+                    className={`font-playfair font-normal text-[16px] sm:text-[18px] ${isFounding ? "text-[#EFBF04]" : "text-[#E8622A]"}`}
+                  >
                     {initials}
                   </span>
                 )
@@ -73,9 +81,20 @@ function CircleGrid({
 
             {isTaken && (
               <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-[#1a1a1a] border border-white/[0.07] rounded-lg px-3 py-2 text-[11px] text-white/60 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-20">
-                <span className="text-[#E8622A]">{dog?.dogName}</span> · #
-                {position}
+                <span
+                  className={isFounding ? "text-[#EFBF04]" : "text-[#E8622A]"}
+                >
+                  {dog?.dogName}
+                </span>{" "}
+                · #{position}
               </div>
+            )}
+            {isTaken && (
+              <span
+                className={`text-[12px] sm:text-[13px] font-light text-center truncate max-w-[72px] sm:max-w-[88px] ${isFounding ? "text-[#EFBF04]" : "text-[#E8622A]"}`}
+              >
+                {dog?.dogName}
+              </span>
             )}
           </div>
         );
@@ -327,6 +346,7 @@ export function FinalCTA({
               "We will never sell your pet's data to advertisers, ever",
               "If we don't ship, every rupee is refunded — no questions asked",
               "Founding Pack members keep their perks forever, even post-launch",
+              "Featured on our Founding Pack wall: your dog\u2019s story on our website",
               "We will share real updates — delays included. No radio silence",
               "Your pet's safety is the only thing we optimise for",
             ].map((line) => (
@@ -392,25 +412,14 @@ export function FinalCTA({
                 >
                   <sup className="text-[18px] align-super mr-[1px]">₹</sup>500
                 </p>
-                <span className="text-[11px] text-white/20 line-through font-mono">
-                  ₹5,000
-                </span>
               </div>
-              <p className="text-[13px] text-[#E8622A] font-playfair italic mb-2">
-                Collar included. You save ₹4,500.
-              </p>
-              <p className="text-[12px] text-white/30 font-light leading-[1.7] mb-6">
-                At ₹500 you get the full MyPerro GPS collar (retail ₹5,000 incl.
-                GST) plus a 3‑month premium subscription, locked in before we
-                open to the public.
-              </p>
 
               <div className="flex flex-wrap gap-2 mb-4">
                 <span className="text-[11px] px-3 py-[4px] rounded-full border border-white/[0.08] text-white/30">
-                  🐾 Stickers
+                  🐾 Founding Pack stickers
                 </span>
                 <span className="text-[11px] px-3 py-[4px] rounded-full border border-white/[0.08] text-white/30">
-                  ❤️ Feature on first 20 pups section
+                  📸 Get featured on our website
                 </span>
               </div>
 
@@ -436,7 +445,7 @@ export function FinalCTA({
                 onClick={() => onClaim("starter")}
                 className="w-full bg-[#E8622A] text-white font-semibold text-[14px] py-[14px] rounded-full transition-opacity hover:opacity-90"
               >
-                Get the Collar - ₹500 →
+                Join Starter Pack - ₹500 →
               </button>
               <p className="text-[10px] text-white/15 text-center mt-3 font-mono tracking-wide">
                 Collar + 3-month plan · Retail value ₹5,000 incl. GST
@@ -469,17 +478,7 @@ export function FinalCTA({
                 >
                   <sup className="text-[18px] align-super mr-[1px]">₹</sup>2,499
                 </p>
-                <span className="text-[11px] text-white/20 line-through font-mono">
-                  ₹4,999
-                </span>
               </div>
-              <p className="text-[13px] text-[#F59E0B] font-playfair italic mb-2">
-                Save ₹2,500 and get the full experience.
-              </p>
-              <p className="text-[12px] text-white/30 font-light leading-[1.7] mb-6">
-                The full founding experience. You're not just buying a collar.
-                You get merch, priority everything, and a direct line to us.
-              </p>
 
               <div className="flex flex-wrap gap-2 mb-4">
                 <span className="text-[11px] px-3 py-[4px] rounded-full border border-[#F59E0B]/20 text-[#F59E0B]/60 bg-[#F59E0B]/[0.05]">
@@ -493,11 +492,11 @@ export function FinalCTA({
               <ul className="flex flex-col gap-3 mb-6">
                 {[
                   "Priority early access",
-                  "6 months of premium plan at no extra cost",
+                  "6 months of free subscription",
                   "Exclusive MyPerro founding merch pack",
-                  "Featured on our Founding Pack wall: you and your dog\u2019s story on our website",
+                  "Featured on our Founding Pack wall: your dog\u2019s story on our website",
                   "One-on-one onboarding call with the MyPerro team",
-                  "Direct private Slack / WhatsApp channel with the founding team",
+                  "Direct private WhatsApp channel with the founding team",
                 ].map((perk) => (
                   <li
                     key={perk}
@@ -518,7 +517,7 @@ export function FinalCTA({
                 Join Founding Pack - ₹2,499 →
               </button>
               <p className="text-[10px] text-white/15 text-center mt-3 font-mono tracking-wide">
-                Fully refundable · Priority dispatch guaranteed
+                Collar + 6-month plan · Retail value ₹5,000 incl. GST
               </p>
             </div>
           </div>
