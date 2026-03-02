@@ -111,10 +111,14 @@ export default function Hero({
         {/* CTA */}
         <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-5 mb-4">
           <button
-            onClick={onClaim}
+            onClick={() =>
+              document
+                .getElementById("reserve")
+                ?.scrollIntoView({ behavior: "smooth" })
+            }
             className="bg-[#E8622A] text-white font-semibold text-[14px] px-8 py-[13px] sm:py-[14px] rounded-full transition-opacity hover:opacity-90 w-fit"
           >
-            Join the Founding Pack →
+            Reserve your spot →
           </button>
           <a
             href="#collar"
@@ -123,10 +127,6 @@ export default function Hero({
             Explore ↓
           </a>
         </div>
-
-        <p className="text-[12px] text-white/20 font-light">
-          ₹500 refundable deposit · Ships April 2026
-        </p>
 
         {mounted && (
           <p className="mt-6 text-[12px] text-white/20 font-light">

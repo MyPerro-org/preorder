@@ -193,7 +193,7 @@ export default function PreorderPage() {
           <img
             src="/myperro-logo.png"
             alt="MyPerro"
-            className="h-5 sm:h-6 opacity-85"
+            className="h-7 sm:h-9 opacity-85"
           />
 
           {/* Desktop nav links */}
@@ -211,14 +211,20 @@ export default function PreorderPage() {
 
           <div className="flex items-center gap-3 sm:gap-4">
             {/* Spots remaining — desktop only */}
-            <span className="hidden sm:block text-[11px] text-white/25 font-light">
-              <span className="text-[#E8622A]">{spots.remaining}</span> spots
-              left
+            <span className="hidden sm:block text-[14px] text-white/60 font-light tracking-wide">
+              <span className="text-[#E8622A] font-semibold text-[15px]">
+                {spots.remaining}
+              </span>{" "}
+              spots left
             </span>
 
             {/* Reserve button */}
             <button
-              onClick={() => openModal("starter")}
+              onClick={() =>
+                document
+                  .getElementById("reserve")
+                  ?.scrollIntoView({ behavior: "smooth" })
+              }
               className="bg-[#E8622A] text-white font-semibold text-[12px] tracking-wide px-5 sm:px-6 py-[9px] sm:py-[10px] rounded-full transition-opacity hover:opacity-90"
             >
               Reserve Spot

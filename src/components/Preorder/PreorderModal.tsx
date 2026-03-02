@@ -18,7 +18,8 @@ const TIER_CONFIG = {
     retailPrice: "₹5,000",
     badgeLabel: "🐾 Starter Pack",
     accentColor: "#E8622A",
-    footerNote: "₹500 credited to collar price · Remaining ₹4,500 before delivery · 100% refundable",
+    footerNote:
+      "₹500 credited to collar price · Remaining ₹4,500 before delivery · 100% refundable",
   },
   founding: {
     amount: 2499,
@@ -29,7 +30,8 @@ const TIER_CONFIG = {
     retailPrice: "₹4,999",
     badgeLabel: "🐾 Founding Pack",
     accentColor: "#F59E0B",
-    footerNote: "₹2,499 credited to collar price · Remaining ₹2,501 before delivery · Fully refundable",
+    footerNote:
+      "₹2,499 credited to collar price · Remaining ₹2,501 before delivery · Fully refundable",
   },
 } as const;
 
@@ -72,7 +74,6 @@ export default function PreorderModal({
   const [phoneno, setPhoneno] = useState("");
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
-  const [colour, setColour] = useState("Midnight Black");
   const [source, setSource] = useState("Instagram");
   const [dogPhoto, setDogPhoto] = useState<File | null>(null);
   const [photoPreview, setPhotoPreview] = useState("");
@@ -103,7 +104,6 @@ export default function PreorderModal({
       setPhoneno("");
       setAddress("");
       setCity("");
-      setColour("Midnight Black");
       setSource("Instagram");
       setDogPhoto(null);
       setPhotoPreview("");
@@ -316,8 +316,16 @@ export default function PreorderModal({
             ✕
           </button>
 
-          <div className="inline-flex items-center gap-2 border border-[#E8622A]/25 text-[#E8622A]/65 text-[10px] font-semibold tracking-[2.5px] uppercase px-4 py-[5px] rounded-full mb-4 sm:mb-5"
-            style={tier === "founding" ? { borderColor: "rgba(245,158,11,0.25)", color: "rgba(245,158,11,0.65)" } : undefined}
+          <div
+            className="inline-flex items-center gap-2 border border-[#E8622A]/25 text-[#E8622A]/65 text-[10px] font-semibold tracking-[2.5px] uppercase px-4 py-[5px] rounded-full mb-4 sm:mb-5"
+            style={
+              tier === "founding"
+                ? {
+                    borderColor: "rgba(245,158,11,0.25)",
+                    color: "rgba(245,158,11,0.65)",
+                  }
+                : undefined
+            }
           >
             {tierConfig.badgeLabel}
           </div>
@@ -328,7 +336,8 @@ export default function PreorderModal({
             Lock in your spot.
           </h3>
           <p className="text-[13px] text-white/30 font-light leading-[1.75] mb-6 sm:mb-8">
-            Pay ₹{tierConfig.amount.toLocaleString("en-IN")} now — credited towards your collar. Fully refundable.
+            Pay ₹{tierConfig.amount.toLocaleString("en-IN")} now — credited
+            towards your collar. Fully refundable.
           </p>
 
           <div className="grid grid-cols-2 gap-3">
@@ -393,19 +402,6 @@ export default function PreorderModal({
                 placeholder="e.g. Bengaluru"
                 disabled={isLoading}
               />
-            </div>
-            <div>
-              <Label>Collar Colour</Label>
-              <select
-                className={inputCls + " cursor-pointer"}
-                value={colour}
-                onChange={(e) => setColour(e.target.value)}
-                disabled={isLoading}
-              >
-                {COLLAR_COLOURS.map((c) => (
-                  <option key={c}>{c}</option>
-                ))}
-              </select>
             </div>
           </div>
 

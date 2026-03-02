@@ -196,24 +196,28 @@ export const PERKS = [
 
 export const FAQS = [
   {
-    q: "Is the ₹500 really fully refundable?",
-    a: "Absolutely. Until we begin shipping, your ₹500 is refundable with zero friction. You can ask for it back for any reason — it is a token of intent, not a locked commitment.",
+    q: "Is the ₹500 refundable?",
+    a: "Absolutely. If MyPerro doesn't ship your collar by the committed deadline, you get a full refund, no questions, no forms, no chasing us. We'd rather lose a customer than lose your trust.",
   },
   {
-    q: "When will the collar arrive?",
-    a: "Founding Pack members are shipped first the moment production is ready. We will share a clear timeline over WhatsApp once you join — no radio silence, ever.",
+    q: "When will I receive the collar?",
+    a: "We're targeting April 2026. You'll be in constant contact with us, our founder will personally update every Founding Pack member through the private WhatsApp group, every step of the way.",
   },
   {
-    q: "Will it fit my dog?",
-    a: "We collect your dog's exact neck measurements during onboarding after you pre-order. Founding Pack members also get one free size exchange.",
+    q: "What does geo-fencing actually mean?",
+    a: "You draw a virtual boundary (like a circle around your home) on the app. The moment your dog steps outside that boundary — gate left open, fence jump, anything, your phone gets an instant alert. No more panic.",
   },
   {
-    q: "When do I pay the remaining ₹4,500?",
-    a: "Only just before we ship. You will get an invoice via email and WhatsApp. No surprise charges before that.",
+    q: "Can I choose customization details later?",
+    a: "Yes. After you secure your spot, we'll send a detailed customization form, name engraving, accent colors, sizing, pet photo for the Wall. Take your time. No rush at all.",
   },
   {
-    q: "What after the 6 months free subscription?",
-    a: "Plans start at ₹250/month. Founding Pack members get a permanent loyalty discount — you will always pay less than retail subscribers.",
+    q: "What's inside the mystery merch box?",
+    a: "We're keeping it a surprise, but think premium, curated, and dog parent worthy. It's a founding edition drop and we're putting real care into it. You'll be pleased.",
+  },
+  {
+    q: "What's the subscription cost after 6 free months?",
+    a: "₹250–300/month, that's under ₹10/day to always know where your dog is. And as a founding member, we'll honour the best rates for you, always. That's a promise, not a policy.",
   },
 ];
 

@@ -13,7 +13,7 @@ export default function PerksSection() {
     {
       n: "PERK 01",
       title: "Geo-fence Intelligence",
-      desc: "Define safe zones on a map. Get alerted the moment your dog crosses them — before they're out of sight.",
+      desc: "Define safe zones on a map. Get alerted the moment your dog crosses them before they're out of sight.",
     },
     {
       n: "PERK 02",
@@ -50,18 +50,26 @@ export default function PerksSection() {
           >
             Engineered for
             <br />
-            the ones you love.
+            the ones you <span className="text-[#E8622A]">love.</span>
           </h2>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
             {/* Map image */}
-            <div className="aspect-[4/3] bg-[#111] border border-white/[0.05] rounded-2xl overflow-hidden relative">
+            <div className="aspect-[4/3] bg-[#0a0a0a] rounded-2xl overflow-hidden relative">
               <img
                 src="/map.jpg"
                 alt="GPS Map"
                 className="w-full h-full object-cover"
+                style={{ filter: "brightness(0.4)" }}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/60 to-transparent" />
+              {/* edge vignette to blend into background */}
+              <div
+                className="absolute inset-0"
+                style={{
+                  background:
+                    "radial-gradient(ellipse at center, transparent 25%, #0a0a0a 60%)",
+                }}
+              />
             </div>
 
             {/* Right: text + specs */}
@@ -119,7 +127,7 @@ export default function PerksSection() {
           >
             Not a discount.
             <br />
-            An invitation.
+            An <span className="text-[#E8622A]">invitation.</span>
           </h2>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
@@ -127,7 +135,7 @@ export default function PerksSection() {
             <div className="bg-[#111] rounded-2xl p-8 sm:p-10 flex flex-col justify-between">
               <div>
                 <p className="text-[13px] text-white/20 line-through tracking-widest mb-3">
-                  ₹8,999 RETAIL
+                  ₹6,999 RETAIL
                 </p>
                 <div className="flex items-baseline gap-1 mb-3">
                   <span className="font-playfair text-white/80 text-[26px] sm:text-[28px]">
@@ -144,7 +152,7 @@ export default function PerksSection() {
                   className="text-[14px] text-[#E8622A] font-light font-playfair mb-5 sm:mb-6"
                   style={{ fontStyle: "italic" }}
                 >
-                  You save ₹3,000 — forever.
+                  You save ₹2,000 — forever.
                 </p>
                 <p className="text-[13px] text-white/35 font-light leading-[1.85] mb-7 sm:mb-8">
                   Founding members lock in the lowest price MyPerro will ever be
@@ -201,7 +209,7 @@ export default function PerksSection() {
             >
               Numbers
               <br />
-              don't lie.
+              don't <span className="text-[#E8622A]">lie.</span>
             </h2>
             <p className="text-[14px] sm:text-[15px] text-white/35 font-light leading-[1.9] md:self-end md:pb-1">
               Before the first collar shipped, India's dog-parent community
