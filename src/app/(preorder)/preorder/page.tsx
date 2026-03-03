@@ -67,7 +67,7 @@ function LiveToast({ activity }: { activity: ActivityEntry[] }) {
 
   return (
     <div
-      className={`fixed bottom-4 left-4 sm:bottom-6 sm:left-6 z-[600] transition-all duration-500 max-w-[260px] sm:max-w-none ${
+      className={`fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-[600] transition-all duration-500 max-w-[260px] sm:max-w-none ${
         visible
           ? "opacity-100 translate-y-0"
           : "opacity-0 translate-y-3 pointer-events-none"
@@ -117,6 +117,7 @@ export default function PreorderPage() {
   const [showNav, setShowNav] = useState(true);
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [savedFormData, setSavedFormData] = useState({});
 
   const loadAll = useCallback(async () => {
     const [act, coh, sp] = await Promise.all([
@@ -189,11 +190,11 @@ export default function PreorderPage() {
             : "bg-transparent"
         }`}
       >
-        <div className="flex items-center justify-between px-6 sm:px-10 md:px-14 py-4 sm:py-5 max-w-[1400px] mx-auto">
+        <div className="flex items-center justify-between px-6 sm:px-10 md:px-20 py-4 sm:py-5">
           <img
             src="/myperro-logo.png"
             alt="MyPerro"
-            className="h-7 sm:h-11 opacity-85"
+            className="h-7 sm:h-11 opacity-85 -ml-1"
           />
 
           {/* Desktop nav links */}
@@ -285,9 +286,9 @@ export default function PreorderPage() {
       <TickerStrip />
       <PerksSection />
       <PetWall cohorts={cohorts} onClaim={() => openModal("starter")} />
+      <FinalCTA remaining={spots.remaining} onClaim={openModal} />
       <StepsSection />
       <FaqSection />
-      <FinalCTA remaining={spots.remaining} onClaim={openModal} />
 
       {/* Footer */}
       <footer className="bg-[#0a0a0a] border-t border-white/[0.04] py-8 sm:py-10 px-6 sm:px-10 md:px-20">
@@ -323,6 +324,8 @@ export default function PreorderPage() {
         onSuccess={handleSuccess}
         seedPet={teaserPet}
         tier={selectedTier}
+        savedFormData={savedFormData}
+        onFormChange={setSavedFormData}
       />
       {result && (
         <SuccessModal

@@ -205,7 +205,7 @@ export const FAQS = [
   },
   {
     q: "What does geo-fencing actually mean?",
-    a: "You draw a virtual boundary (like a circle around your home) on the app. The moment your dog steps outside that boundary — gate left open, fence jump, anything, your phone gets an instant alert. No more panic.",
+    a: "You draw a virtual boundary (like a circle around your home) on the app. The moment your dog steps outside that boundary gate left open, fence jump, anything, your phone gets an instant alert. No more panic.",
   },
   {
     q: "Can I choose customization details later?",
@@ -236,7 +236,7 @@ export const TICKER_ITEMS = [
 
 export const PLEDGE_LINES = [
   "We will never sell your pet's data to advertisers, ever",
-  "If we don't ship, every rupee is refunded — no questions asked",
+  "If we don't ship, every rupee is refunded, no questions asked",
   "Founding Pack members keep their perks forever, even post-launch",
   "We will share real updates — delays included. No radio silence",
   "Your pet's safety is the only thing we optimise for",

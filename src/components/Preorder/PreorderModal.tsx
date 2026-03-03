@@ -47,6 +47,8 @@ interface Props {
   }) => void;
   seedPet: string;
   tier?: PackTier;
+  savedFormData?: any;
+  onFormChange?: (data: any) => void;
 }
 
 type PayState = "idle" | "submitting" | "paying" | "verifying" | "error";
@@ -66,6 +68,8 @@ export default function PreorderModal({
   onSuccess,
   seedPet,
   tier = "starter",
+  savedFormData,
+  onFormChange,
 }: Props) {
   const tierConfig = TIER_CONFIG[tier];
   const [name, setName] = useState("");
@@ -98,24 +102,29 @@ export default function PreorderModal({
 
   useEffect(() => {
     if (!open) {
-      setName("");
-      setDogsname("");
-      setMail("");
-      setPhoneno("");
-      setAddress("");
-      setCity("");
-      setSource("Instagram");
-      setDogPhoto(null);
-      setPhotoPreview("");
-      setHasReferral(false);
-      setRefCode("");
-      setRefStatus("idle");
       setPayState("idle");
       setErrorMsg("");
       if (referralCheckTimeoutRef.current)
         clearTimeout(referralCheckTimeoutRef.current);
     }
   }, [open]);
+
+  useEffect(() => {
+    if (open && savedFormData) {
+      if (savedFormData.name) setName(savedFormData.name);
+      if (savedFormData.mail) setMail(savedFormData.mail);
+      if (savedFormData.phoneno) setPhoneno(savedFormData.phoneno);
+      if (savedFormData.address) setAddress(savedFormData.address);
+      if (savedFormData.city) setCity(savedFormData.city);
+      if (savedFormData.dogsname) setDogsname(savedFormData.dogsname);
+    }
+  }, [open]);
+
+  useEffect(() => {
+    if (open && onFormChange) {
+      onFormChange({ name, mail, phoneno, address, city, dogsname });
+    }
+  }, [name, mail, phoneno, address, city, dogsname]);
 
   useEffect(
     () => () => {

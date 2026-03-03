@@ -4,7 +4,7 @@
 export default function PerksSection() {
   const highlights = [
     "Founding member price locked permanently",
-    "Priority dispatch — first collars leave our workshop first",
+    "Priority dispatch, first collars leave our workshop first",
     "Direct access to the product team via a private channel",
     "Your dog's name on the Founding Wall",
   ];
@@ -28,9 +28,9 @@ export default function PerksSection() {
   ];
 
   const specs = [
-    ["GPS Technology", "Multi-band GPS + BLE"],
-    ["Battery Life", "Up to 7 days"],
-    ["Connectivity", "4G LTE + WiFi"],
+    ["GPS Technology", "GPS"],
+    ["Battery Life", "7 days passive · 3–4 days active"],
+    ["Connectivity", "WiFi/BLE/LTE"],
   ];
 
   return (
@@ -41,7 +41,7 @@ export default function PerksSection() {
         className="bg-[#0a0a0a] py-20 sm:py-28 px-6 sm:px-10 md:px-20"
       >
         <div className="max-w-[1100px] mx-auto">
-          <p className="text-[10px] font-semibold tracking-[4px] uppercase text-white/20 mb-6 sm:mb-8">
+          <p className="text-[12px] font-semibold tracking-[4px] uppercase text-white/20 mb-6 sm:mb-8">
             001 — Product
           </p>
           <h2
@@ -115,7 +115,7 @@ export default function PerksSection() {
         className="bg-[#0a0a0a] py-20 sm:py-28 px-6 sm:px-10 md:px-20 border-t border-white/[0.04]"
       >
         <div className="max-w-[1100px] mx-auto">
-          <p className="text-[10px] font-semibold tracking-[4px] uppercase text-white/20 mb-6 sm:mb-8">
+          <p className="text-[12px] font-semibold tracking-[4px] uppercase text-white/20 mb-6 sm:mb-8">
             002 — Founding Perks
           </p>
           <h2
@@ -195,7 +195,7 @@ export default function PerksSection() {
       {/* ── 003 Stats ───────────────────────────────────── */}
       <section className="bg-[#0a0a0a] py-20 sm:py-28 px-6 sm:px-10 md:px-20 border-t border-white/[0.04]">
         <div className="max-w-[1100px] mx-auto">
-          <p className="text-[10px] font-semibold tracking-[4px] uppercase text-white/20 mb-6 sm:mb-8">
+          <p className="text-[12px] font-semibold tracking-[4px] uppercase text-white/20 mb-6 sm:mb-8">
             003 — Traction
           </p>
 
@@ -248,7 +248,7 @@ export default function PerksSection() {
                     {s.suffix}
                   </span>
                 </div>
-                <p className="text-[11px] sm:text-[12px] text-white/25 font-light leading-[1.7] whitespace-pre-line">
+                <p className="text-[14px] sm:text-[15px] text-white/25 font-light leading-[1.7] whitespace-pre-line">
                   {s.label}
                 </p>
               </div>

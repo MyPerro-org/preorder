@@ -121,7 +121,7 @@ export function PetWall({
       className="bg-[#0a0a0a] py-20 sm:py-28 px-6 sm:px-10 md:px-20 border-t border-white/[0.04]"
     >
       <div className="max-w-[1100px] mx-auto">
-        <p className="text-[10px] font-semibold tracking-[4px] uppercase text-white/20 mb-6 sm:mb-8">
+        <p className="text-[12px] font-semibold tracking-[4px] uppercase text-white/20 mb-6 sm:mb-8">
           004 — The Pack
         </p>
         <h2
@@ -133,7 +133,9 @@ export function PetWall({
           That's it.
         </h2>
         <p className="text-[13px] sm:text-[14px] text-white/30 font-light leading-[1.9] max-w-[380px] mb-4">
-          Every circle below is a founding member. The orange ones are taken.
+          Every circle is a founding member.{" "}
+          <span className="text-[#E8622A]">Orange</span> ones joined at ₹500 ·{" "}
+          <span className="text-[#EFBF04]">Gold</span> ones joined at ₹2,499.
           The pulsing one is yours.
         </p>
 
@@ -195,7 +197,7 @@ export function StepsSection() {
     {
       n: "02",
       title: "We build, you wait",
-      desc: "Your collar is assembled and tested through April 2026. We keep you updated — you'll know exactly where it is at every stage.",
+      desc: "Your collar is assembled and tested through April 2026. We keep you updated you'll know exactly where it is at every stage.",
     },
     {
       n: "03",
@@ -205,7 +207,7 @@ export function StepsSection() {
     {
       n: "04",
       title: "You never stop knowing",
-      desc: "Real-time GPS. Intelligent alerts. A calm, assured feeling that — wherever they wander — you'll always know.",
+      desc: "Real-time GPS. Intelligent alerts. A calm, assured feeling that wherever they wander you'll always know.",
     },
   ];
 
@@ -215,7 +217,7 @@ export function StepsSection() {
       className="bg-[#0a0a0a] py-20 sm:py-28 px-6 sm:px-10 md:px-20 border-t border-white/[0.04]"
     >
       <div className="max-w-[1100px] mx-auto">
-        <p className="text-[10px] font-semibold tracking-[4px] uppercase text-white/20 mb-6 sm:mb-8">
+        <p className="text-[12px] font-semibold tracking-[4px] uppercase text-white/20 mb-6 sm:mb-8">
           005 — How it works
         </p>
         <h2
@@ -330,38 +332,6 @@ export function FinalCTA({
 }) {
   return (
     <>
-      {/* Pledge */}
-      <section className="bg-[#0a0a0a] py-20 sm:py-24 px-6 sm:px-10 md:px-20 border-t border-white/[0.04]">
-        <div className="max-w-[1100px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 sm:gap-16 items-center">
-          <h2
-            className="font-playfair font-normal text-white leading-[1.1]"
-            style={{ fontSize: "clamp(24px, 3vw, 40px)" }}
-          >
-            We built MyPerro because
-            <br />
-            <span className="text-white/30">our own pet got lost once.</span>
-          </h2>
-          <ul className="flex flex-col gap-4">
-            {[
-              "We will never sell your pet's data to advertisers, ever",
-              "If we don't ship, every rupee is refunded — no questions asked",
-              "Founding Pack members keep their perks forever, even post-launch",
-              "Featured on our Founding Pack wall: your dog\u2019s story on our website",
-              "We will share real updates — delays included. No radio silence",
-              "Your pet's safety is the only thing we optimise for",
-            ].map((line) => (
-              <li
-                key={line}
-                className="flex items-start gap-3 text-[13px] text-white/35 font-light leading-[1.7]"
-              >
-                <span className="text-[#E8622A] shrink-0 mt-[2px]">—</span>
-                {line}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
       {/* Reserve — Two-tier pricing */}
       <section
         id="reserve"
@@ -427,8 +397,7 @@ export function FinalCTA({
                 {[
                   "3 months of free subscription",
                   "Exclusive MyPerro founding merch",
-                  "Your dog’s photo featured on our website",
-
+                  "Your dog's photo featured on our website",
                   "One-on-one onboarding call with the MyPerro team",
                   "Direct private WhatsApp channel with the founding team",
                   "Exclusive Founding Pack sticker set delivered with collar",
@@ -451,8 +420,8 @@ export function FinalCTA({
               >
                 Join Starter Pack - ₹500 →
               </button>
-              <p className="text-[10px] text-white/15 text-center mt-3 font-mono tracking-wide">
-                Collar + 3-month plan · Retail value ₹5,000 incl. GST
+              <p className="text-[12px] text-white/15 text-center mt-3 font-mono tracking-wide">
+                Collar + 3-month plan · Retail value ₹4,999 excl. GST
               </p>
             </div>
 
@@ -495,14 +464,13 @@ export function FinalCTA({
 
               <ul className="flex flex-col gap-3 mb-6">
                 {[
-                  "Priority early access",
                   "6 months of free subscription",
                   "Exclusive MyPerro founding merch pack",
-
+                  "Your dog\u2019s photo featured on our website",
                   "One-on-one onboarding call with the MyPerro team",
-                  "Exclusive Founding Pack sticker set delivered with collar",
                   "Direct private WhatsApp channel with the founding team",
-                  "Featured on our Founding Pack wall: your dog\u2019s story on our website",
+                  "Exclusive Founding Pack sticker set delivered with collar",
+                  "Priority early access",
                 ].map((perk) => (
                   <li
                     key={perk}
@@ -522,11 +490,46 @@ export function FinalCTA({
               >
                 Join Founding Pack - ₹2,499 →
               </button>
-              <p className="text-[10px] text-white/15 text-center mt-3 font-mono tracking-wide">
-                Collar + 6-month plan · Retail value ₹5,000 incl. GST
+              <p className="text-[12px] text-white/15 text-center mt-3 font-mono tracking-wide">
+                Collar + 6-month plan · Retail value ₹4,999 excl. GST
               </p>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Simple by design — Steps */}
+      {/* NOTE: StepsSection is rendered separately in page.tsx, so order is controlled there */}
+
+      {/* Pledge */}
+      <section className="bg-[#0a0a0a] py-20 sm:py-24 px-6 sm:px-10 md:px-20 border-t border-white/[0.04]">
+        <div className="max-w-[1100px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 sm:gap-16 items-center">
+          <h2
+            className="font-playfair font-normal text-white leading-[1.1]"
+            style={{ fontSize: "clamp(24px, 3vw, 40px)" }}
+          >
+            We built MyPerro because
+            <br />
+            <span className="text-white/30">our own pet got lost once.</span>
+          </h2>
+          <ul className="flex flex-col gap-4">
+            {[
+              "We will never sell your pet's data to advertisers, ever",
+              "If we don't ship, every rupee is refunded, no questions asked",
+              "Founding Pack members keep their perks forever, even post-launch",
+              "Featured on our Founding Pack wall: your dog\u2019s story on our website",
+              "We will share real updates, delays included. No radio silence",
+              "Your pet's safety is the only thing we optimise for",
+            ].map((line) => (
+              <li
+                key={line}
+                className="flex items-start gap-3 text-[13px] text-white/35 font-light leading-[1.7]"
+              >
+                <span className="text-[#E8622A] shrink-0 mt-[2px]">—</span>
+                {line}
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
     </>

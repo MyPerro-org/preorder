@@ -116,20 +116,20 @@ export default function Hero({
                 .getElementById("reserve")
                 ?.scrollIntoView({ behavior: "smooth" })
             }
-            className="bg-[#E8622A] text-white font-semibold text-[14px] px-8 py-[13px] sm:py-[14px] rounded-full transition-opacity hover:opacity-90 w-fit"
+            className="bg-[#E8622A] text-white font-semibold text-[16px] px-8 py-[13px] sm:py-[14px] rounded-full transition-opacity hover:opacity-90 w-fit"
           >
             Reserve your spot →
           </button>
           <a
             href="#collar"
-            className="text-[13px] text-white/30 font-light hover:text-white/55 transition-colors pl-1 sm:pl-0"
+            className="text-[15px] text-white/30 font-light hover:text-white/55 transition-colors pl-1 sm:pl-0"
           >
             Explore ↓
           </a>
         </div>
 
         {mounted && (
-          <div className="mt-6 flex items-center gap-3">
+          <div className="mt-4 flex items-center gap-3 pl-1 sm:pl-0">
             <span className="text-[11px] font-semibold tracking-[2px] uppercase text-white/20">
               Pack Status
             </span>
