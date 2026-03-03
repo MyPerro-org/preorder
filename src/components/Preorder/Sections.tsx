@@ -425,8 +425,12 @@ export function FinalCTA({
 
               <ul className="flex flex-col gap-3 mb-6">
                 {[
-                  "Early access: your collar ships before the public launch",
-                  "3 months of premium plan included free",
+                  "3 months of free subscription",
+                  "Exclusive MyPerro founding merch",
+                  "Your dog’s photo featured on our website",
+
+                  "One-on-one onboarding call with the MyPerro team",
+                  "Direct private WhatsApp channel with the founding team",
                   "Exclusive Founding Pack sticker set delivered with collar",
                 ].map((perk) => (
                   <li
@@ -494,10 +498,11 @@ export function FinalCTA({
                   "Priority early access",
                   "6 months of free subscription",
                   "Exclusive MyPerro founding merch pack",
-                  "Featured on our Founding Pack wall: your dog\u2019s story on our website",
+
                   "One-on-one onboarding call with the MyPerro team",
                   "Exclusive Founding Pack sticker set delivered with collar",
                   "Direct private WhatsApp channel with the founding team",
+                  "Featured on our Founding Pack wall: your dog\u2019s story on our website",
                 ].map((perk) => (
                   <li
                     key={perk}
