@@ -133,10 +133,10 @@ export function PetWall({
           That's it.
         </h2>
         <p className="text-[13px] sm:text-[14px] text-white/30 font-light leading-[1.9] max-w-[380px] mb-4">
-          Every circle is a founding member.{" "}
-          <span className="text-[#E8622A]">Orange</span> ones joined at ₹500 ·{" "}
-          <span className="text-[#EFBF04]">Gold</span> ones joined at ₹2,499.
-          The pulsing one is yours.
+          Every circle is a pet parent who said yes early.{" "}
+          <span className="text-[#E8622A]">Orange</span> for Starter,{" "}
+          <span className="text-[#EFBF04]">Gold</span> for Founding,. The
+          pulsing one is waiting for you.
         </p>
 
         {/* Cohort tabs */}
@@ -218,7 +218,7 @@ export function StepsSection() {
     >
       <div className="max-w-[1100px] mx-auto">
         <p className="text-[12px] font-semibold tracking-[4px] uppercase text-white/20 mb-6 sm:mb-8">
-          005 — How it works
+          005 — Four Steps, One Promise
         </p>
         <h2
           className="font-playfair font-normal text-white leading-[1.08] mb-14 sm:mb-20"
