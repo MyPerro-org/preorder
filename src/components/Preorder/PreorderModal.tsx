@@ -14,11 +14,11 @@ const TIER_CONFIG = {
   starter: {
     amount: 500,
     amountPaise: 50000,
-    label: "Starter Pack",
-    description: "Starter Pack - Rs 500 token",
+    label: "Scout Pack",
+    description: "Scout Pack - Rs 500 token",
     collarRemainder: "Rs 4,500",
     retailPrice: "Rs 5,000",
-    badgeLabel: "Starter Pack",
+    badgeLabel: "Scout Pack",
     accentColor: "#E8622A",
     footerNote:
       "Rs 500 credited to collar price | Remaining Rs 4,500 before delivery | 100% refundable",
@@ -30,7 +30,7 @@ const TIER_CONFIG = {
     description: "Founding Member - Rs 2,499",
     collarRemainder: "Rs 2,501",
     retailPrice: "Rs 4,999",
-    badgeLabel: "Founding Pack",
+    badgeLabel: "Alpha Pack",
     accentColor: "#F59E0B",
     footerNote:
       "Rs 2,499 credited to collar price | Remaining Rs 2,501 before delivery | Fully refundable",
@@ -541,7 +541,9 @@ export default function PreorderModal({
                         key={s}
                         type="button"
                         className={`w-full text-left px-4 py-3 text-[13px] hover:bg-white/[0.04] ${
-                          s === stateName ? "text-[#E8622A] bg-[#E8622A]/[0.06]" : "text-white/80"
+                          s === stateName
+                            ? "text-[#E8622A] bg-[#E8622A]/[0.06]"
+                            : "text-white/80"
                         }`}
                         onClick={() => {
                           setStateName(s);
@@ -614,7 +616,9 @@ export default function PreorderModal({
               </div>
             ) : (
               <div className="flex flex-col items-center justify-center py-7 sm:py-8 gap-2">
-                <span className="text-[11px] sm:text-[12px] text-white/25 uppercase tracking-[1px]">Upload</span>
+                <span className="text-[11px] sm:text-[12px] text-white/25 uppercase tracking-[1px]">
+                  Upload
+                </span>
                 <p className="text-[13px] text-white/25 font-light">
                   Tap to upload your dog's photo
                 </p>

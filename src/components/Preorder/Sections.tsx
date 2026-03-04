@@ -10,7 +10,7 @@ export function SavingsSection() {
   return null;
 }
 
-/* AaaAaa Pet Wall AaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaa */
+/* AaaAaa Pet Wall AaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaa */
 const COHORT_SIZE = 20;
 
 function CircleGrid({
@@ -136,7 +136,13 @@ export function PetWall({
         <p className="text-[12px] font-semibold tracking-[4px] uppercase text-white/20 mb-6 sm:mb-8">
           004 - THE PACK
         </p>
-        <div className={welcomeCard ? "grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_560px] gap-8 xl:gap-10 items-start" : ""}>
+        <div
+          className={
+            welcomeCard
+              ? "grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_560px] gap-8 xl:gap-10 items-start"
+              : ""
+          }
+        >
           <div>
             <h2
               className="font-playfair font-normal text-white leading-[1.08] mb-4 sm:mb-5"
@@ -168,11 +174,15 @@ export function PetWall({
                   : "You're officially part of the MyPerro journey. Your support not only guarantees you early shipping from our first batch, but also unlocks benefits."}
               </p>
               <p className="text-[13px] text-white/65 leading-[1.8] mt-3">
-                Welcome to the heart of the community. Let's create the future of smart pet care, together.
+                Welcome to the heart of the community. Let's create the future
+                of smart pet care, together.
               </p>
-              <p className="text-[13px] text-white mt-3">-Team MyPerro {"\u{1F43E}"}</p>
+              <p className="text-[13px] text-white mt-3">
+                -Team MyPerro {"\u{1F43E}"}
+              </p>
               <p className="text-[11px] text-white/35 mt-3">
-                {welcomeCard.ownerName} with {welcomeCard.petName} | Cohort {welcomeCard.cohortNumber} | Spot #{welcomeCard.cohortPosition}
+                {welcomeCard.ownerName} with {welcomeCard.petName} | Cohort{" "}
+                {welcomeCard.cohortNumber} | Spot #{welcomeCard.cohortPosition}
               </p>
               <button
                 onClick={async () => {
@@ -406,15 +416,23 @@ export function FinalCTA({
 }) {
   const comparisonRows = [
     { perk: "Free subscription", starter: "3 months", founding: "6 months" },
-    { perk: "Founding merch", starter: "Included", founding: "Merch pack" },
-    { perk: "Website feature", starter: "Dog photo", founding: "You + dog story wall" },
-    { perk: "Founding stickers", starter: "Included", founding: "Included" },
-    { perk: "Onboarding call", starter: "Included", founding: "Included" },
-    { perk: "Private WhatsApp channel", starter: "Included", founding: "Included" },
-    { perk: "Priority early access", starter: "Not included", founding: "Included" },
-    { perk: "Beta testing access", starter: "Not included", founding: "Included" },
-    { perk: "Health collar discount", starter: "Not included", founding: "10% off" },
+    { perk: "Founding merch", starter: "✓", founding: "Merch pack" },
+    {
+      perk: "Website feature",
+      starter: "Dog photo",
+      founding: "You + dog story wall",
+    },
+    { perk: "Founding stickers", starter: "✓", founding: "✓" },
+    { perk: "Onboarding call", starter: "✓", founding: "✓" },
+    { perk: "Private WhatsApp channel", starter: "✓", founding: "✓" },
+    { perk: "Priority early access", starter: "✗", founding: "✓" },
+    { perk: "Beta testing access", starter: "✗", founding: "✓" },
+    { perk: "Health collar discount", starter: "✗", founding: "10% off" },
   ];
+
+  // Returns true if the founding value is meaningfully different/better than starter
+  const isFoundingExclusive = (row: (typeof comparisonRows)[0]) =>
+    row.starter === "✗" || row.founding !== row.starter;
 
   return (
     <>
@@ -441,46 +459,47 @@ export function FinalCTA({
             The Founding Pack closes when the last spot is taken.
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-[980px] mx-auto items-start">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-[980px] mx-auto items-stretch">
             <div
-              className="bg-[#111] border border-white/[0.08] rounded-3xl text-left overflow-hidden transition-transform hover:-translate-y-1 grid"
-              style={{
-                boxShadow: "0 0 60px rgba(232,97,26,0.04)",
-                gridTemplateRows: "360px auto",
-              }}
+              className="bg-[#111] border border-white/[0.08] rounded-3xl text-left overflow-hidden transition-transform hover:-translate-y-1 flex flex-col"
+              style={{ boxShadow: "0 0 60px rgba(232,97,26,0.04)" }}
             >
-              <div className="p-6 sm:p-8 flex flex-col">
+              <div className="p-6 sm:p-8">
                 <div className="inline-flex items-center gap-2 border border-[#E8622A]/25 text-[#E8622A]/75 text-[9px] font-semibold tracking-[2px] uppercase px-3 py-[4px] rounded-full mb-4">
                   <span className="w-[5px] h-[5px] rounded-full bg-[#E8622A]" />
-                  Starter Pack
+                  Scout Pack
                 </div>
                 <h3 className="font-playfair font-normal text-white text-[32px] leading-[1.1] mb-1">
                   Essentials
                 </h3>
-                <p className="text-[14px] text-white/55 mb-8">
+                <p className="text-[14px] text-white/55 mb-5">
                   Great way to lock your place early
                 </p>
-                <div className="flex items-end gap-2 mb-8">
+                <div className="flex items-end gap-2 mb-5">
                   <p
                     className="font-playfair font-normal text-white leading-none"
                     style={{ fontSize: "clamp(44px, 6vw, 64px)" }}
                   >
-                    <sup className="text-[18px] align-super mr-[2px]">Rs</sup>500
+                    <sup className="text-[18px] align-super mr-[2px]">Rs</sup>
+                    500
                   </p>
-                  <p className="text-[22px] text-white/35 mb-1">one-time token</p>
+                  <p className="text-[22px] text-white/35 mb-1">
+                    one-time token
+                  </p>
                 </div>
                 <button
                   onClick={() => onClaim("starter")}
-                  className="w-full bg-white text-black font-semibold text-[16px] py-[11px] rounded-xl transition-opacity hover:opacity-90 mt-auto"
+                  className="w-full bg-white text-black font-semibold text-[16px] py-[11px] rounded-xl transition-opacity hover:opacity-90"
                 >
-                  Join Starter Pack
+                  Join Scout Pack
                 </button>
                 <p className="text-[12px] text-white/20 text-center mt-3 font-mono tracking-wide">
                   Credited to final collar price
                 </p>
               </div>
-              <div className="border-t border-white/[0.08] p-6 sm:p-8 mt-auto">
-                <p className="text-[14px] font-semibold text-white/75 mb-4 h-[56px] flex items-end">
+              <div className="flex-1" />
+              <div className="border-t border-white/[0.08] p-6 sm:p-8">
+                <p className="text-[14px] font-semibold text-white/75 mb-4">
                   Includes:
                 </p>
                 <ul className="flex flex-col gap-3">
@@ -505,35 +524,35 @@ export function FinalCTA({
             </div>
 
             <div
-              className="bg-[#111] border border-[#F59E0B]/35 rounded-3xl text-left overflow-hidden transition-transform hover:-translate-y-1 grid"
-              style={{
-                boxShadow: "0 0 60px rgba(245,158,11,0.06)",
-                gridTemplateRows: "360px auto",
-              }}
+              className="bg-[#111] border border-[#F59E0B]/35 rounded-3xl text-left overflow-hidden transition-transform hover:-translate-y-1 flex flex-col"
+              style={{ boxShadow: "0 0 60px rgba(245,158,11,0.06)" }}
             >
-              <div className="p-6 sm:p-8 flex flex-col">
+              <div className="p-6 sm:p-8">
                 <div className="inline-flex items-center gap-2 border border-[#F59E0B]/35 text-[#F59E0B]/80 text-[9px] font-semibold tracking-[2px] uppercase px-3 py-[4px] rounded-full mb-4">
                   <span className="w-[5px] h-[5px] rounded-full bg-[#F59E0B]" />
-                  Founding Pack
+                  Alpha Pack
                 </div>
                 <h3 className="font-playfair font-normal text-white text-[32px] leading-[1.1] mb-1">
                   Founding Member
                 </h3>
-                <p className="text-[14px] text-[#F59E0B]/75 mb-8">
+                <p className="text-[14px] text-[#F59E0B]/75 mb-5">
                   Priority access and long-term benefits
                 </p>
-                <div className="flex items-end gap-2 mb-8">
+                <div className="flex items-end gap-2 mb-5">
                   <p
                     className="font-playfair font-normal text-[#F59E0B] leading-none"
                     style={{ fontSize: "clamp(44px, 6vw, 64px)" }}
                   >
-                    <sup className="text-[18px] align-super mr-[2px]">Rs</sup>2,499
+                    <sup className="text-[18px] align-super mr-[2px]">Rs</sup>
+                    2,499
                   </p>
-                  <p className="text-[22px] text-white/35 mb-1">one-time token</p>
+                  <p className="text-[22px] text-white/35 mb-1">
+                    one-time token
+                  </p>
                 </div>
                 <button
                   onClick={() => onClaim("founding")}
-                  className="w-full bg-white text-black font-semibold text-[16px] py-[11px] rounded-xl transition-opacity hover:opacity-90 mt-auto"
+                  className="w-full bg-white text-black font-semibold text-[16px] py-[11px] rounded-xl transition-opacity hover:opacity-90"
                 >
                   Join Founding Pack
                 </button>
@@ -541,9 +560,10 @@ export function FinalCTA({
                   Credited to final collar price
                 </p>
               </div>
-              <div className="border-t border-white/[0.08] p-6 sm:p-8 mt-auto">
-                <p className="text-[14px] font-semibold text-white/75 mb-4 h-[56px] flex items-end">
-                  Everything in Starter, plus:
+              <div className="flex-1" />
+              <div className="border-t border-white/[0.08] p-6 sm:p-8">
+                <p className="text-[14px] font-semibold text-white/75 mb-4">
+                  Everything in Scout, plus:
                 </p>
                 <ul className="flex flex-col gap-3">
                   {[
@@ -604,21 +624,35 @@ export function FinalCTA({
                 </div>
               </div>
 
+              {/* Mobile swipe cards */}
               <div className="md:hidden">
                 <p className="text-[11px] text-white/35 mb-3">Swipe plans</p>
                 <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                   <article className="snap-start shrink-0 w-[86vw] rounded-xl border border-[#E8622A]/25 bg-[#12100d] p-4">
                     <p className="text-[12px] uppercase tracking-[1.5px] text-[#E8622A] font-semibold mb-3">
-                      Starter Pack
+                      Scout Pack
                     </p>
                     <ul className="space-y-2.5">
                       {comparisonRows.map((row) => {
-                        const included = row.starter !== "Not included";
+                        const included = row.starter !== "✗";
                         return (
-                          <li key={row.perk} className="flex items-start justify-between gap-3">
-                            <span className="text-[12px] text-white/70">{row.perk}</span>
-                            <span className={`text-[12px] font-medium text-right ${included ? "text-white/90" : "text-white/35"}`}>
-                              {included ? row.starter : "Not included"}
+                          <li
+                            key={row.perk}
+                            className="flex items-start justify-between gap-3"
+                          >
+                            <span className="text-[12px] text-white/70">
+                              {row.perk}
+                            </span>
+                            <span
+                              className={`text-[12px] font-medium text-right ${
+                                row.starter === "✓" || row.starter === "✗"
+                                  ? included
+                                    ? "text-white/60"
+                                    : "text-white/25"
+                                  : "text-white/90"
+                              }`}
+                            >
+                              {row.starter}
                             </span>
                           </li>
                         );
@@ -632,12 +666,28 @@ export function FinalCTA({
                     </p>
                     <ul className="space-y-2.5">
                       {comparisonRows.map((row) => {
-                        const included = row.founding !== "Not included";
+                        const exclusive = isFoundingExclusive(row);
+                        const isCross = row.founding === "✗";
                         return (
-                          <li key={row.perk} className="flex items-start justify-between gap-3">
-                            <span className="text-[12px] text-white/70">{row.perk}</span>
-                            <span className={`text-[12px] font-medium text-right ${included ? "text-white/95" : "text-white/35"}`}>
-                              {included ? row.founding : "Not included"}
+                          <li
+                            key={row.perk}
+                            className="flex items-start justify-between gap-3"
+                          >
+                            <span className="text-[12px] text-white/70">
+                              {row.perk}
+                            </span>
+                            <span
+                              className={`text-[12px] font-medium text-right ${
+                                isCross
+                                  ? "text-white/25"
+                                  : exclusive
+                                    ? "text-[#F59E0B]"
+                                    : row.founding === "✓"
+                                      ? "text-white/60"
+                                      : "text-white/95"
+                              }`}
+                            >
+                              {row.founding}
                             </span>
                           </li>
                         );
@@ -647,36 +697,62 @@ export function FinalCTA({
                 </div>
               </div>
 
+              {/* Desktop table */}
               <div className="hidden md:block rounded-xl border border-white/[0.06] overflow-hidden">
                 <div className="grid grid-cols-[minmax(0,1fr)_220px_220px] bg-white/[0.03]">
                   <div className="px-5 py-3 text-[12px] uppercase tracking-[1.4px] text-white/40 font-semibold">
                     Feature
                   </div>
                   <div className="px-5 py-3 text-[12px] uppercase tracking-[1.4px] text-[#E8622A] font-semibold text-center border-l border-white/[0.06]">
-                    Starter
+                    Scout
                   </div>
                   <div className="px-5 py-3 text-[12px] uppercase tracking-[1.4px] text-[#F59E0B] font-semibold text-center border-l border-white/[0.06]">
-                    Founding
+                    Alpha
                   </div>
                 </div>
 
                 {comparisonRows.map((row, idx) => {
-                  const starterIncluded = row.starter !== "Not included";
-                  const foundingIncluded = row.founding !== "Not included";
+                  const exclusive = isFoundingExclusive(row);
+                  const starterIsCross = row.starter === "✗";
+                  const foundingIsCross = row.founding === "✗";
+                  const starterIsSymbol =
+                    row.starter === "✓" || row.starter === "✗";
+                  const foundingIsSymbol =
+                    row.founding === "✓" || row.founding === "✗";
                   return (
                     <div
                       key={row.perk}
-                      className={`grid grid-cols-[minmax(0,1fr)_220px_220px] ${idx < comparisonRows.length - 1 ? "border-t border-white/[0.06]" : ""}`}
+                      className={`grid grid-cols-[minmax(0,1fr)_220px_220px] ${idx > 0 ? "border-t border-white/[0.06]" : ""}`}
                     >
-                      <div className="px-5 py-3.5 text-[14px] text-white/80">{row.perk}</div>
-                      <div className="px-5 py-3.5 text-[13px] text-center border-l border-white/[0.06]">
-                        <span className={starterIncluded ? "text-white/85" : "text-white/35"}>
-                          {starterIncluded ? row.starter : "Not included"}
+                      <div className="px-5 py-3.5 text-[14px] text-white/80">
+                        {row.perk}
+                      </div>
+                      <div className="px-5 py-3.5 text-[14px] text-center border-l border-white/[0.06]">
+                        <span
+                          className={
+                            starterIsCross
+                              ? "text-white/25"
+                              : starterIsSymbol
+                                ? "text-white/55"
+                                : "text-white/85"
+                          }
+                        >
+                          {row.starter}
                         </span>
                       </div>
-                      <div className="px-5 py-3.5 text-[13px] text-center border-l border-white/[0.06]">
-                        <span className={foundingIncluded ? "text-white/95" : "text-white/35"}>
-                          {foundingIncluded ? row.founding : "Not included"}
+                      <div className="px-5 py-3.5 text-[14px] text-center border-l border-white/[0.06]">
+                        <span
+                          className={
+                            foundingIsCross
+                              ? "text-white/25"
+                              : exclusive
+                                ? "text-[#F59E0B] font-medium"
+                                : foundingIsSymbol
+                                  ? "text-white/55"
+                                  : "text-white/85"
+                          }
+                        >
+                          {row.founding}
                         </span>
                       </div>
                     </div>

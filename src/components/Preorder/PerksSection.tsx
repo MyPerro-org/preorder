@@ -218,16 +218,24 @@ export default function PerksSection() {
           <div className="grid grid-cols-2 md:grid-cols-4">
             {[
               {
+                num: "800",
+                suffix: "+",
+                label: "pet parent interviews conducted",
+              },
+              {
                 num: "97",
                 suffix: "%",
-                label: "waitlist satisfaction in\nearly surveys",
+                label: "diagnostic accuracy across dogs tested",
               },
-              { num: "86", suffix: "+", label: "pre-registered pet\nparents" },
-              { num: "22", suffix: "+", label: "cities across\nIndia" },
+
               {
-                num: "100",
-                suffix: "+",
-                label: "vet and trainer\nconversations",
+                num: "$20",
+                suffix: "k",
+                label: "government & private grants secured",
+              },
+              {
+                num: "103",
+                label: "letters of intent secured",
               },
             ].map((s, i) => (
               <div

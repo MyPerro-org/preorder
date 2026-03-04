@@ -188,7 +188,10 @@ export default function PreorderPage() {
       setModalOpen(false);
       setSuccOpen(true);
       if (typeof window !== "undefined") {
-        window.localStorage.setItem(SUCCESS_CARD_STORAGE_KEY, JSON.stringify(data));
+        window.localStorage.setItem(
+          SUCCESS_CARD_STORAGE_KEY,
+          JSON.stringify(data),
+        );
       }
       setConfetti(true);
       setTimeout(() => setConfetti(false), 5500);
@@ -227,29 +230,29 @@ export default function PreorderPage() {
             : "bg-transparent"
         }`}
       >
-        <div className="flex items-center justify-between px-6 sm:px-10 md:px-20 py-4 sm:py-5">
+        <div className="flex items-center justify-between px-6 sm:px-10 md:px-16 lg:px-20 py-4 sm:py-5">
           <img
             src="/myperro-logo.png"
             alt="MyPerro"
-            className="h-7 sm:h-11 opacity-85 -ml-1"
+            className="h-7 sm:h-9 lg:h-11 opacity-85 -ml-1 shrink-0"
           />
 
-          {/* Desktop nav links */}
-          <nav className="hidden md:flex items-center gap-14">
+          {/* Desktop nav links — only show at lg (1024px+) */}
+          <nav className="hidden lg:flex items-center gap-8 xl:gap-14">
             {navLinks.map(([label, href]) => (
               <a
                 key={label}
                 href={href}
-                className="text-[11px] font-semibold tracking-[2px] text-white/35 hover:text-white/70 transition-colors"
+                className="text-[11px] font-semibold tracking-[2px] text-white/35 hover:text-white/70 transition-colors whitespace-nowrap"
               >
                 {label}
               </a>
             ))}
           </nav>
 
-          <div className="flex items-center gap-3 sm:gap-4">
-            {/* Spots remaining — desktop only */}
-            <span className="hidden sm:block text-[14px] text-white/60 font-light tracking-wide">
+          <div className="flex items-center gap-2 sm:gap-3">
+            {/* Spots remaining — only show at lg to avoid crowding */}
+            <span className="hidden lg:block text-[14px] text-white/60 font-light tracking-wide whitespace-nowrap">
               <span className="text-[#E8622A] font-semibold text-[15px]">
                 {spots.remaining}
               </span>{" "}
@@ -263,15 +266,15 @@ export default function PreorderPage() {
                   .getElementById("reserve")
                   ?.scrollIntoView({ behavior: "smooth" })
               }
-              className="bg-[#E8622A] text-white font-semibold text-[12px] tracking-wide px-5 sm:px-6 py-[9px] sm:py-[10px] rounded-full transition-opacity hover:opacity-90"
+              className="bg-[#E8622A] text-white font-semibold text-[11px] sm:text-[12px] tracking-wide px-4 sm:px-5 lg:px-6 py-[8px] sm:py-[10px] rounded-full transition-opacity hover:opacity-90 whitespace-nowrap"
             >
               Reserve Spot
             </button>
 
-            {/* Hamburger — mobile only */}
+            {/* Hamburger — visible below lg */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden flex flex-col gap-[5px] p-1"
+              className="lg:hidden flex flex-col gap-[5px] p-1 ml-1"
               aria-label="Menu"
             >
               <span
@@ -287,9 +290,9 @@ export default function PreorderPage() {
           </div>
         </div>
 
-        {/* Mobile dropdown menu */}
+        {/* Mobile/tablet dropdown menu — visible below lg */}
         {mobileMenuOpen && (
-          <div className="md:hidden bg-[rgba(10,10,10,0.98)] backdrop-blur-xl border-t border-white/[0.05] px-6 py-6 flex flex-col gap-6">
+          <div className="lg:hidden bg-[rgba(10,10,10,0.98)] backdrop-blur-xl border-t border-white/[0.05] px-6 py-6 flex flex-col gap-6">
             {navLinks.map(([label, href]) => (
               <a
                 key={label}
@@ -379,9 +382,30 @@ export default function PreorderPage() {
                 Company
               </h3>
               <ul className="space-y-2.5 text-[18px] sm:text-[20px] md:text-[18px] font-light">
-                <li><Link href="/about" className="text-white/85 hover:text-[#E8622A] transition-colors">About Us</Link></li>
-                <li><Link href="/about#mission" className="text-white/85 hover:text-[#E8622A] transition-colors">Our Mission</Link></li>
-                <li><Link href="/about" className="text-white/85 hover:text-[#E8622A] transition-colors">Careers</Link></li>
+                <li>
+                  <Link
+                    href="/about"
+                    className="text-white/85 hover:text-[#E8622A] transition-colors"
+                  >
+                    About Us
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/about#mission"
+                    className="text-white/85 hover:text-[#E8622A] transition-colors"
+                  >
+                    Our Mission
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/about"
+                    className="text-white/85 hover:text-[#E8622A] transition-colors"
+                  >
+                    Careers
+                  </Link>
+                </li>
               </ul>
             </div>
 
@@ -390,9 +414,30 @@ export default function PreorderPage() {
                 Quick Links
               </h3>
               <ul className="space-y-2.5 text-[18px] sm:text-[20px] md:text-[18px] font-light">
-                <li><Link href="/" className="text-white/85 hover:text-[#E8622A] transition-colors">Smart Collar</Link></li>
-                <li><Link href="/blogs" className="text-white/85 hover:text-[#E8622A] transition-colors">Blogs</Link></li>
-                <li><Link href="/" className="text-white/85 hover:text-[#E8622A] transition-colors">Home</Link></li>
+                <li>
+                  <Link
+                    href="/"
+                    className="text-white/85 hover:text-[#E8622A] transition-colors"
+                  >
+                    Smart Collar
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/blogs"
+                    className="text-white/85 hover:text-[#E8622A] transition-colors"
+                  >
+                    Blogs
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/"
+                    className="text-white/85 hover:text-[#E8622A] transition-colors"
+                  >
+                    Home
+                  </Link>
+                </li>
               </ul>
             </div>
 
@@ -401,9 +446,30 @@ export default function PreorderPage() {
                 Support
               </h3>
               <ul className="space-y-2.5 text-[18px] sm:text-[20px] md:text-[18px] font-light">
-                <li><Link href="/contact" className="text-white/85 hover:text-[#E8622A] transition-colors">Contact Us</Link></li>
-                <li><Link href="/preorder#faq" className="text-white/85 hover:text-[#E8622A] transition-colors">FAQs</Link></li>
-                <li><Link href="/about" className="text-white/85 hover:text-[#E8622A] transition-colors">Privacy Policy</Link></li>
+                <li>
+                  <Link
+                    href="/contact"
+                    className="text-white/85 hover:text-[#E8622A] transition-colors"
+                  >
+                    Contact Us
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/preorder#faq"
+                    className="text-white/85 hover:text-[#E8622A] transition-colors"
+                  >
+                    FAQs
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/about"
+                    className="text-white/85 hover:text-[#E8622A] transition-colors"
+                  >
+                    Privacy Policy
+                  </Link>
+                </li>
               </ul>
             </div>
           </div>
