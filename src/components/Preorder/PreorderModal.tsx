@@ -15,27 +15,63 @@ const TIER_CONFIG = {
     amount: 500,
     amountPaise: 50000,
     label: "Starter Pack",
-    description: "Starter Pack — ₹500 token",
-    collarRemainder: "₹4,500",
-    retailPrice: "₹5,000",
-    badgeLabel: "🐾 Starter Pack",
+    description: "Starter Pack - Rs 500 token",
+    collarRemainder: "Rs 4,500",
+    retailPrice: "Rs 5,000",
+    badgeLabel: "Starter Pack",
     accentColor: "#E8622A",
     footerNote:
-      "₹500 credited to collar price · Remaining ₹4,500 before delivery · 100% refundable",
+      "Rs 500 credited to collar price | Remaining Rs 4,500 before delivery | 100% refundable",
   },
   founding: {
     amount: 2499,
     amountPaise: 249900,
     label: "Founding Member",
-    description: "Founding Member — ₹2,499",
-    collarRemainder: "₹2,501",
-    retailPrice: "₹4,999",
-    badgeLabel: "🐾 Founding Pack",
+    description: "Founding Member - Rs 2,499",
+    collarRemainder: "Rs 2,501",
+    retailPrice: "Rs 4,999",
+    badgeLabel: "Founding Pack",
     accentColor: "#F59E0B",
     footerNote:
-      "₹2,499 credited to collar price · Remaining ₹2,501 before delivery · Fully refundable",
+      "Rs 2,499 credited to collar price | Remaining Rs 2,501 before delivery | Fully refundable",
   },
 } as const;
+
+const INDIA_STATES = [
+  "Andhra Pradesh",
+  "Arunachal Pradesh",
+  "Assam",
+  "Bihar",
+  "Chhattisgarh",
+  "Goa",
+  "Gujarat",
+  "Haryana",
+  "Himachal Pradesh",
+  "Jharkhand",
+  "Karnataka",
+  "Kerala",
+  "Madhya Pradesh",
+  "Maharashtra",
+  "Manipur",
+  "Meghalaya",
+  "Mizoram",
+  "Nagaland",
+  "Odisha",
+  "Punjab",
+  "Rajasthan",
+  "Sikkim",
+  "Tamil Nadu",
+  "Telangana",
+  "Tripura",
+  "Uttar Pradesh",
+  "Uttarakhand",
+  "West Bengal",
+  "Delhi",
+  "Jammu and Kashmir",
+  "Ladakh",
+  "Chandigarh",
+  "Puducherry",
+];
 
 interface Props {
   open: boolean;
@@ -81,6 +117,9 @@ export default function PreorderModal({
   const [phoneno, setPhoneno] = useState("");
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
+  const [stateName, setStateName] = useState("");
+  const [isStateMenuOpen, setIsStateMenuOpen] = useState(false);
+  const [stateQuery, setStateQuery] = useState("");
   const [source, setSource] = useState("Instagram");
   const [dogPhoto, setDogPhoto] = useState<File | null>(null);
   const [photoPreview, setPhotoPreview] = useState("");
@@ -94,10 +133,14 @@ export default function PreorderModal({
   const [errorMsg, setErrorMsg] = useState("");
   const [shake, setShake] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
+  const stateMenuRef = useRef<HTMLDivElement>(null);
   const referralCheckTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(
     null,
   );
   const latestReferralCodeRef = useRef("");
+  const filteredStates = INDIA_STATES.filter((s) =>
+    s.toLowerCase().includes(stateQuery.trim().toLowerCase()),
+  );
 
   useEffect(() => {
     if (open) setDogsname(seedPet || "");
@@ -119,15 +162,16 @@ export default function PreorderModal({
       if (savedFormData.phoneno) setPhoneno(savedFormData.phoneno);
       if (savedFormData.address) setAddress(savedFormData.address);
       if (savedFormData.city) setCity(savedFormData.city);
+      if (savedFormData.stateName) setStateName(savedFormData.stateName);
       if (savedFormData.dogsname) setDogsname(savedFormData.dogsname);
     }
   }, [open]);
 
   useEffect(() => {
     if (open && onFormChange) {
-      onFormChange({ name, mail, phoneno, address, city, dogsname });
+      onFormChange({ name, mail, phoneno, address, city, stateName, dogsname });
     }
-  }, [name, mail, phoneno, address, city, dogsname]);
+  }, [name, mail, phoneno, address, city, stateName, dogsname]);
 
   useEffect(
     () => () => {
@@ -136,6 +180,20 @@ export default function PreorderModal({
     },
     [],
   );
+
+  useEffect(() => {
+    if (!isStateMenuOpen) return;
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        stateMenuRef.current &&
+        !stateMenuRef.current.contains(event.target as Node)
+      ) {
+        setIsStateMenuOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isStateMenuOpen]);
 
   const handlePhoto = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -211,6 +269,7 @@ export default function PreorderModal({
       formData.append("phoneno", phoneno.trim());
       formData.append("address", address.trim());
       formData.append("city", city.trim());
+      if (stateName.trim()) formData.append("state", stateName.trim());
       formData.append("mail", mail.trim());
       formData.append("dogsname", dogsname.trim());
       formData.append("dogphoto", dogPhoto);
@@ -300,10 +359,10 @@ export default function PreorderModal({
     payState === "submitting"
       ? "Saving your details..."
       : payState === "paying"
-        ? "Complete payment in popup →"
+        ? "Complete payment in popup ->"
         : payState === "verifying"
           ? "Confirming payment..."
-          : `Reserve My Spot — ₹${tierConfig.amount.toLocaleString("en-IN")} →`;
+          : `Reserve My Spot - Rs ${tierConfig.amount.toLocaleString("en-IN")} ->`;
 
   return (
     <>
@@ -329,7 +388,7 @@ export default function PreorderModal({
             disabled={isLoading}
             className="absolute top-4 right-4 sm:top-5 sm:right-5 text-white/20 hover:text-white/55 transition-colors text-[18px] disabled:opacity-20"
           >
-            ✕
+            x
           </button>
 
           <div
@@ -352,7 +411,7 @@ export default function PreorderModal({
             Lock in your spot.
           </h3>
           <p className="text-[13px] text-white/30 font-light leading-[1.75] mb-6 sm:mb-8">
-            Pay ₹{tierConfig.amount.toLocaleString("en-IN")} now — credited
+            Pay Rs {tierConfig.amount.toLocaleString("en-IN")} now - credited
             towards your collar. Fully refundable.
           </p>
 
@@ -419,6 +478,84 @@ export default function PreorderModal({
                 disabled={isLoading}
               />
             </div>
+            <div ref={stateMenuRef} className="relative">
+              <Label>State</Label>
+              <button
+                type="button"
+                onClick={() => {
+                  if (isLoading) return;
+                  setIsStateMenuOpen((v) => {
+                    const next = !v;
+                    if (next) setStateQuery("");
+                    return next;
+                  });
+                }}
+                disabled={isLoading}
+                className={`${inputCls} cursor-pointer text-left flex items-center justify-between ${isStateMenuOpen ? "border-[#E8622A]/50" : ""}`}
+              >
+                <span className={stateName ? "text-white" : "text-white/25"}>
+                  {stateName || "Select state"}
+                </span>
+                <svg
+                  viewBox="0 0 20 20"
+                  className={`w-4 h-4 text-white/45 transition-transform ${isStateMenuOpen ? "rotate-180" : ""}`}
+                  fill="none"
+                >
+                  <path
+                    d="M5 7.5L10 12.5L15 7.5"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+              {isStateMenuOpen && (
+                <div className="absolute z-30 top-full left-0 right-0 mt-1 rounded-xl border border-white/[0.1] bg-[#101010] shadow-[0_18px_40px_rgba(0,0,0,0.45)] max-h-56 overflow-y-auto">
+                  <div className="p-2 border-b border-white/[0.06] sticky top-0 bg-[#101010]">
+                    <input
+                      type="text"
+                      value={stateQuery}
+                      onChange={(e) => setStateQuery(e.target.value)}
+                      placeholder="Search state..."
+                      className="w-full bg-[#0b0b0b] border border-white/[0.08] rounded-lg text-white text-[12px] px-3 py-2 outline-none focus:border-[#E8622A]/50 placeholder:text-white/30"
+                    />
+                  </div>
+                  <button
+                    type="button"
+                    className="w-full text-left px-4 py-3 text-[13px] text-white/65 hover:bg-white/[0.04] border-b border-white/[0.06]"
+                    onClick={() => {
+                      setStateName("");
+                      setIsStateMenuOpen(false);
+                    }}
+                  >
+                    Select state
+                  </button>
+                  {filteredStates.length === 0 ? (
+                    <p className="px-4 py-3 text-[12px] text-white/40">
+                      No state found
+                    </p>
+                  ) : (
+                    filteredStates.map((s) => (
+                      <button
+                        key={s}
+                        type="button"
+                        className={`w-full text-left px-4 py-3 text-[13px] hover:bg-white/[0.04] ${
+                          s === stateName ? "text-[#E8622A] bg-[#E8622A]/[0.06]" : "text-white/80"
+                        }`}
+                        onClick={() => {
+                          setStateName(s);
+                          setStateQuery(s);
+                          setIsStateMenuOpen(false);
+                        }}
+                      >
+                        {s}
+                      </button>
+                    ))
+                  )}
+                </div>
+              )}
+            </div>
           </div>
 
           <Label>How did you hear about us?</Label>
@@ -433,7 +570,7 @@ export default function PreorderModal({
             ))}
           </select>
 
-          <Label>Dog's Photo * (JPG / PNG / WEBP · Max 5MB)</Label>
+          <Label>Dog's Photo * (JPG / PNG / WEBP | Max 5MB)</Label>
           <div
             onClick={() => !isLoading && fileRef.current?.click()}
             className={`mb-5 rounded-xl border-2 border-dashed transition-colors cursor-pointer ${dogPhoto ? "border-[#E8622A]/40 bg-[#E8622A]/[0.03]" : "border-white/[0.06] hover:border-white/15"}`}
@@ -458,15 +595,26 @@ export default function PreorderModal({
                     {dogPhoto?.name}
                   </p>
                   <p className="text-[11px] text-white/20 mt-1">
-                    {((dogPhoto?.size ?? 0) / 1024).toFixed(0)} KB · Tap to
+                    {((dogPhoto?.size ?? 0) / 1024).toFixed(0)} KB | Tap to
                     change
                   </p>
                 </div>
-                <span className="text-[#E8622A] shrink-0">✓</span>
+                <span className="shrink-0 inline-flex items-center gap-1.5 rounded-full border border-[#E8622A]/40 bg-[#E8622A]/10 px-2.5 py-1 text-[11px] font-semibold text-[#E8622A]">
+                  <svg viewBox="0 0 16 16" className="w-3 h-3" fill="none">
+                    <path
+                      d="M3.5 8.2L6.6 11.2L12.5 5.3"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                  Uploaded
+                </span>
               </div>
             ) : (
               <div className="flex flex-col items-center justify-center py-7 sm:py-8 gap-2">
-                <span className="text-[26px] sm:text-[28px]">📸</span>
+                <span className="text-[11px] sm:text-[12px] text-white/25 uppercase tracking-[1px]">Upload</span>
                 <p className="text-[13px] text-white/25 font-light">
                   Tap to upload your dog's photo
                 </p>
@@ -534,10 +682,10 @@ export default function PreorderModal({
                   {refStatus !== "idle" && (
                     <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[14px]">
                       {refStatus === "checking"
-                        ? "…"
+                        ? "..."
                         : refStatus === "ok"
-                          ? "✓"
-                          : "✕"}
+                          ? "OK"
+                          : "X"}
                     </span>
                   )}
                 </div>

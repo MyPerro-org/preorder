@@ -10,7 +10,7 @@ export function SavingsSection() {
   return null;
 }
 
-/* ── Pet Wall ─────────────────────────────────────────────── */
+/* AaaAaa Pet Wall AaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaa */
 const COHORT_SIZE = 20;
 
 function CircleGrid({
@@ -87,7 +87,7 @@ function CircleGrid({
                 >
                   {dog?.dogName}
                 </span>{" "}
-                · #{position}
+                #{position}
               </div>
             )}
             {isTaken && (
@@ -134,7 +134,7 @@ export function PetWall({
     >
       <div className="max-w-[1100px] mx-auto">
         <p className="text-[12px] font-semibold tracking-[4px] uppercase text-white/20 mb-6 sm:mb-8">
-          004 — The Pack
+          004 - THE PACK
         </p>
         <div className={welcomeCard ? "grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_560px] gap-8 xl:gap-10 items-start" : ""}>
           <div>
@@ -149,7 +149,7 @@ export function PetWall({
             <p className="text-[13px] sm:text-[14px] text-white/30 font-light leading-[1.9] max-w-[380px] mb-4">
               Every circle is a pet parent who said yes early.{" "}
               <span className="text-[#E8622A]">Orange</span> for Starter,{" "}
-              <span className="text-[#EFBF04]">Gold</span> for Founding,. The
+              <span className="text-[#EFBF04]">Gold</span> for Founding. The
               pulsing one is waiting for you.
             </p>
           </div>
@@ -228,7 +228,7 @@ export function PetWall({
                     : "text-white/30 border-transparent hover:text-white/55"
               }`}
             >
-              {c.label} {c.locked && "🔒"}
+              {c.label} {c.locked && "(Locked)"}
               {!c.locked && (
                 <span className="ml-2 text-[10px] text-white/20 font-light">
                   {c.dogs.length}/{COHORT_SIZE}
@@ -257,13 +257,13 @@ export function FeedSection({
   return null;
 }
 
-/* ── Steps ─────────────────────────────────────────────────── */
+/* AaaAaa Steps AaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaa */
 export function StepsSection() {
   const steps = [
     {
       n: "01",
       title: "Reserve your spot",
-      desc: "A refundable ₹500 deposit holds your place in the Founding Pack. No risk. Fully cancellable until dispatch.",
+      desc: "A refundable Rs 500 deposit holds your place in the Founding Pack. No risk. Fully cancellable until dispatch.",
     },
     {
       n: "02",
@@ -289,7 +289,7 @@ export function StepsSection() {
     >
       <div className="max-w-[1100px] mx-auto">
         <p className="text-[12px] font-semibold tracking-[4px] uppercase text-white/20 mb-6 sm:mb-8">
-          005 — Four Steps, One Promise
+          005 - FOUR STEPS, ONE PROMISE
         </p>
         <h2
           className="font-playfair font-normal text-white leading-[1.08] mb-14 sm:mb-20"
@@ -335,7 +335,7 @@ export function PledgeSection() {
   return null;
 }
 
-/* ── FAQ ─────────────────────────────────────────────────────  */
+/* AaaAaa FAQ AaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaa  */
 function FaqItem({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false);
   return (
@@ -393,7 +393,7 @@ export function FaqSection() {
   );
 }
 
-/* ── Final CTA ───────────────────────────────────────────────  */
+/* AaaAaa Final CTA AaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaa  */
 export function FinalCTA({
   remaining,
   onClaim,
@@ -401,9 +401,21 @@ export function FinalCTA({
   remaining: number;
   onClaim: (tier?: "starter" | "founding") => void;
 }) {
+  const comparisonRows = [
+    { perk: "Free subscription", starter: "3 months", founding: "6 months" },
+    { perk: "Founding merch", starter: "Included", founding: "Merch pack" },
+    { perk: "Website feature", starter: "Dog photo", founding: "You + dog story wall" },
+    { perk: "Founding stickers", starter: "Included", founding: "Included" },
+    { perk: "Onboarding call", starter: "Included", founding: "Included" },
+    { perk: "Private WhatsApp channel", starter: "Included", founding: "Included" },
+    { perk: "Priority early access", starter: "Not included", founding: "Included" },
+    { perk: "Beta testing access", starter: "Not included", founding: "Included" },
+    { perk: "Health collar discount", starter: "Not included", founding: "10% off" },
+  ];
+
   return (
     <>
-      {/* Reserve — Two-tier pricing */}
+      {/* Reserve Aaa Two-tier pricing */}
       <section
         id="reserve"
         className="bg-[#0a0a0a] py-20 sm:py-28 px-6 sm:px-10 md:px-20 border-t border-white/[0.04] text-center"
@@ -426,152 +438,254 @@ export function FinalCTA({
             The Founding Pack closes when the last spot is taken.
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-[820px] mx-auto">
-            {/* Starter Pack */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-[980px] mx-auto items-start">
             <div
-              className="bg-[#111] border border-white/[0.06] rounded-2xl px-6 sm:px-8 py-10 sm:py-12 text-left relative overflow-hidden transition-transform hover:-translate-y-1"
-              style={{ boxShadow: "0 0 60px rgba(232,97,26,0.04)" }}
+              className="bg-[#111] border border-white/[0.08] rounded-3xl text-left overflow-hidden transition-transform hover:-translate-y-1 grid"
+              style={{
+                boxShadow: "0 0 60px rgba(232,97,26,0.04)",
+                gridTemplateRows: "360px auto",
+              }}
             >
-              <div className="inline-flex items-center gap-2 border border-[#E8622A]/25 text-[#E8622A]/65 text-[9px] font-semibold tracking-[2px] uppercase px-3 py-[4px] rounded-full mb-3">
-                <span
-                  className="w-[5px] h-[5px] rounded-full bg-[#E8622A]"
-                  style={{ boxShadow: "0 0 6px rgba(232,97,26,0.8)" }}
-                />
-                Starter Pack
-              </div>
-              <h3 className="font-playfair font-normal text-white text-[24px] sm:text-[28px] leading-[1.1] mb-1">
-                Essentials
-              </h3>
-              <p className="text-[10px] font-semibold tracking-[1.5px] uppercase text-white/20 mb-5">
-                3-month subscription
-              </p>
-
-              <div className="flex items-baseline gap-2 mb-1">
-                <p
-                  className="font-playfair font-normal text-white"
-                  style={{ fontSize: "clamp(36px, 5vw, 60px)" }}
+              <div className="p-6 sm:p-8 flex flex-col">
+                <div className="inline-flex items-center gap-2 border border-[#E8622A]/25 text-[#E8622A]/75 text-[9px] font-semibold tracking-[2px] uppercase px-3 py-[4px] rounded-full mb-4">
+                  <span className="w-[5px] h-[5px] rounded-full bg-[#E8622A]" />
+                  Starter Pack
+                </div>
+                <h3 className="font-playfair font-normal text-white text-[32px] leading-[1.1] mb-1">
+                  Essentials
+                </h3>
+                <p className="text-[14px] text-white/55 mb-8">
+                  Great way to lock your place early
+                </p>
+                <div className="flex items-end gap-2 mb-8">
+                  <p
+                    className="font-playfair font-normal text-white leading-none"
+                    style={{ fontSize: "clamp(44px, 6vw, 64px)" }}
+                  >
+                    <sup className="text-[18px] align-super mr-[2px]">Rs</sup>500
+                  </p>
+                  <p className="text-[22px] text-white/35 mb-1">one-time token</p>
+                </div>
+                <button
+                  onClick={() => onClaim("starter")}
+                  className="w-full bg-white text-black font-semibold text-[16px] py-[11px] rounded-xl transition-opacity hover:opacity-90 mt-auto"
                 >
-                  <sup className="text-[18px] align-super mr-[1px]">₹</sup>500
+                  Join Starter Pack
+                </button>
+                <p className="text-[12px] text-white/20 text-center mt-3 font-mono tracking-wide">
+                  Credited to final collar price
                 </p>
               </div>
-
-              <div className="flex flex-wrap gap-2 mb-4">
-                <span className="text-[11px] px-3 py-[4px] rounded-full border border-white/[0.08] text-white/30">
-                  🐾 Founding Pack stickers
-                </span>
-                <span className="text-[11px] px-3 py-[4px] rounded-full border border-white/[0.08] text-white/30">
-                  📸 Get featured on our website
-                </span>
+              <div className="border-t border-white/[0.08] p-6 sm:p-8 mt-auto">
+                <p className="text-[14px] font-semibold text-white/75 mb-4 h-[56px] flex items-end">
+                  Includes:
+                </p>
+                <ul className="flex flex-col gap-3">
+                  {[
+                    "3 months of free subscription",
+                    "Exclusive MyPerro founding merch",
+                    "Your dog's photo featured on our website",
+                    "Exclusive Founding Pack sticker set delivered with collar",
+                    "One-on-one onboarding call with the MyPerro team",
+                    "Direct private WhatsApp channel with the founding team",
+                  ].map((perk) => (
+                    <li
+                      key={perk}
+                      className="flex items-start gap-3 text-[14px] text-white/60 font-light leading-[1.5]"
+                    >
+                      <span className="text-white/45 mt-[1px]">-</span>
+                      {perk}
+                    </li>
+                  ))}
+                </ul>
               </div>
-
-              <ul className="flex flex-col gap-3 mb-6">
-                {[
-                  "3 months of free subscription",
-                  "Exclusive MyPerro founding merch",
-                  "Your dog's photo featured on our website",
-                  "One-on-one onboarding call with the MyPerro team",
-                  "Direct private WhatsApp channel with the founding team",
-                  "Exclusive Founding Pack sticker set delivered with collar",
-                ].map((perk) => (
-                  <li
-                    key={perk}
-                    className="flex items-start gap-3 text-[12px] text-white/50 font-light leading-[1.5]"
-                  >
-                    <span className="w-5 h-5 rounded-full bg-[#E8622A]/10 border border-[#E8622A]/25 flex items-center justify-center shrink-0 mt-[1px]">
-                      <span className="w-[5px] h-[5px] rounded-full bg-[#E8622A]" />
-                    </span>
-                    {perk}
-                  </li>
-                ))}
-              </ul>
-
-              <button
-                onClick={() => onClaim("starter")}
-                className="w-full bg-[#E8622A] text-white font-semibold text-[14px] py-[14px] rounded-full transition-opacity hover:opacity-90"
-              >
-                Join Starter Pack - ₹500 →
-              </button>
-              <p className="text-[12px] text-white/15 text-center mt-3 font-mono tracking-wide">
-                Collar + 3-month plan · Retail value ₹4,999 excl. GST
-              </p>
             </div>
 
-            {/* Founding Pack */}
             <div
-              className="bg-[#111] border border-[#F59E0B]/20 rounded-2xl px-6 sm:px-8 py-10 sm:py-12 text-left relative overflow-hidden transition-transform hover:-translate-y-1"
-              style={{ boxShadow: "0 0 60px rgba(245,158,11,0.06)" }}
+              className="bg-[#111] border border-[#F59E0B]/35 rounded-3xl text-left overflow-hidden transition-transform hover:-translate-y-1 grid"
+              style={{
+                boxShadow: "0 0 60px rgba(245,158,11,0.06)",
+                gridTemplateRows: "360px auto",
+              }}
             >
-              <div className="inline-flex items-center gap-2 border border-[#F59E0B]/30 text-[#F59E0B]/70 text-[9px] font-semibold tracking-[2px] uppercase px-3 py-[4px] rounded-full mb-3">
-                <span
-                  className="w-[5px] h-[5px] rounded-full bg-[#F59E0B]"
-                  style={{ boxShadow: "0 0 6px rgba(245,158,11,0.8)" }}
-                />
-                Founding Pack
-              </div>
-              <h3 className="font-playfair font-normal text-white text-[24px] sm:text-[28px] leading-[1.1] mb-1">
-                Founding Member
-              </h3>
-              <p className="text-[10px] font-semibold tracking-[1.5px] uppercase text-white/20 mb-5">
-                6-month subscription
-              </p>
-
-              <div className="flex items-baseline gap-2 mb-1">
-                <p
-                  className="font-playfair font-normal text-[#F59E0B]"
-                  style={{ fontSize: "clamp(36px, 5vw, 60px)" }}
+              <div className="p-6 sm:p-8 flex flex-col">
+                <div className="inline-flex items-center gap-2 border border-[#F59E0B]/35 text-[#F59E0B]/80 text-[9px] font-semibold tracking-[2px] uppercase px-3 py-[4px] rounded-full mb-4">
+                  <span className="w-[5px] h-[5px] rounded-full bg-[#F59E0B]" />
+                  Founding Pack
+                </div>
+                <h3 className="font-playfair font-normal text-white text-[32px] leading-[1.1] mb-1">
+                  Founding Member
+                </h3>
+                <p className="text-[14px] text-[#F59E0B]/75 mb-8">
+                  Priority access and long-term benefits
+                </p>
+                <div className="flex items-end gap-2 mb-8">
+                  <p
+                    className="font-playfair font-normal text-[#F59E0B] leading-none"
+                    style={{ fontSize: "clamp(44px, 6vw, 64px)" }}
+                  >
+                    <sup className="text-[18px] align-super mr-[2px]">Rs</sup>2,499
+                  </p>
+                  <p className="text-[22px] text-white/35 mb-1">one-time token</p>
+                </div>
+                <button
+                  onClick={() => onClaim("founding")}
+                  className="w-full bg-white text-black font-semibold text-[16px] py-[11px] rounded-xl transition-opacity hover:opacity-90 mt-auto"
                 >
-                  <sup className="text-[18px] align-super mr-[1px]">₹</sup>2,499
+                  Join Founding Pack
+                </button>
+                <p className="text-[12px] text-white/20 text-center mt-3 font-mono tracking-wide">
+                  Credited to final collar price
                 </p>
               </div>
+              <div className="border-t border-white/[0.08] p-6 sm:p-8 mt-auto">
+                <p className="text-[14px] font-semibold text-white/75 mb-4 h-[56px] flex items-end">
+                  Everything in Starter, plus:
+                </p>
+                <ul className="flex flex-col gap-3">
+                  {[
+                    "6 months of free subscription",
+                    "Exclusive MyPerro founding merch pack",
+                    "Featured on our Founding Pack wall: you and your dog's story on our website",
+                    "Exclusive Founding Pack sticker set delivered with collar",
+                    "One-on-one onboarding call with the MyPerro team",
+                    "Direct private WhatsApp channel with the founding team",
+                    "Priority early access",
+                    "Beta tester access before public launch",
+                    "10% discount on health collar",
+                  ].map((perk) => (
+                    <li
+                      key={perk}
+                      className="flex items-start gap-3 text-[14px] text-white/60 font-light leading-[1.5]"
+                    >
+                      <span className="text-white/45 mt-[1px]">-</span>
+                      {perk}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
 
-              <div className="flex flex-wrap gap-2 mb-4">
-                <span className="text-[11px] px-3 py-[4px] rounded-full border border-[#F59E0B]/20 text-[#F59E0B]/60 bg-[#F59E0B]/[0.05]">
-                  🎁 MyPerro merchandise
-                </span>
-                <span className="text-[11px] px-3 py-[4px] rounded-full border border-[#F59E0B]/20 text-[#F59E0B]/60 bg-[#F59E0B]/[0.05]">
-                  📸 Get featured on our website
-                </span>
+          <div className="max-w-[980px] mx-auto mt-8 sm:mt-10">
+            <div className="rounded-2xl border border-white/[0.08] bg-[linear-gradient(180deg,#121212_0%,#0f0f0f_100%)] p-4 sm:p-5">
+              <div className="mb-4 sm:mb-5">
+                <div className="md:hidden flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                  <h4 className="text-[13px] sm:text-[14px] tracking-[1.5px] uppercase font-semibold text-white/55">
+                    Perk Comparison
+                  </h4>
+                  <div className="flex items-center gap-2">
+                    <span className="inline-flex h-9 items-center justify-center px-3 rounded-full border border-[#E8622A]/30 bg-[#E8622A]/10 text-[#E8622A] text-[11px] font-semibold tracking-wide leading-none">
+                      Starter Rs 500
+                    </span>
+                    <span className="inline-flex h-9 items-center justify-center px-3 rounded-full border border-[#F59E0B]/35 bg-[#F59E0B]/10 text-[#F59E0B] text-[11px] font-semibold tracking-wide leading-none">
+                      Founding Rs 2,499
+                    </span>
+                  </div>
+                </div>
+
+                <div className="hidden md:grid grid-cols-[minmax(0,1fr)_220px_220px] items-center gap-0">
+                  <h4 className="text-[13px] tracking-[1.5px] uppercase font-semibold text-white/55">
+                    Perk Comparison
+                  </h4>
+                  <div className="flex justify-center">
+                    <span className="inline-flex h-9 items-center justify-center px-3 rounded-full border border-[#E8622A]/30 bg-[#E8622A]/10 text-[#E8622A] text-[11px] font-semibold tracking-wide leading-none">
+                      Starter Rs 500
+                    </span>
+                  </div>
+                  <div className="flex justify-center">
+                    <span className="inline-flex h-9 items-center justify-center px-3 rounded-full border border-[#F59E0B]/35 bg-[#F59E0B]/10 text-[#F59E0B] text-[11px] font-semibold tracking-wide leading-none">
+                      Founding Rs 2,499
+                    </span>
+                  </div>
+                </div>
               </div>
 
-              <ul className="flex flex-col gap-3 mb-6">
-                {[
-                  "6 months of free subscription",
-                  "Exclusive MyPerro founding merch pack",
-                  "Your dog\u2019s photo featured on our website",
-                  "One-on-one onboarding call with the MyPerro team",
-                  "Direct private WhatsApp channel with the founding team",
-                  "Exclusive Founding Pack sticker set delivered with collar",
-                  "Priority early access",
-                  "Become a beta tester and try our health collar before public launch",
-                  "10% discount on our health collar",
-                ].map((perk) => (
-                  <li
-                    key={perk}
-                    className="flex items-start gap-3 text-[12px] text-white/50 font-light leading-[1.5]"
-                  >
-                    <span className="w-5 h-5 rounded-full bg-[#F59E0B]/10 border border-[#F59E0B]/28 flex items-center justify-center shrink-0 mt-[1px]">
-                      <span className="w-[5px] h-[5px] rounded-full bg-[#F59E0B]" />
-                    </span>
-                    {perk}
-                  </li>
-                ))}
-              </ul>
+              <div className="md:hidden">
+                <p className="text-[11px] text-white/35 mb-3">Swipe plans</p>
+                <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                  <article className="snap-start shrink-0 w-[86vw] rounded-xl border border-[#E8622A]/25 bg-[#12100d] p-4">
+                    <p className="text-[12px] uppercase tracking-[1.5px] text-[#E8622A] font-semibold mb-3">
+                      Starter Pack
+                    </p>
+                    <ul className="space-y-2.5">
+                      {comparisonRows.map((row) => {
+                        const included = row.starter !== "Not included";
+                        return (
+                          <li key={row.perk} className="flex items-start justify-between gap-3">
+                            <span className="text-[12px] text-white/70">{row.perk}</span>
+                            <span className={`text-[12px] font-medium text-right ${included ? "text-white/90" : "text-white/35"}`}>
+                              {included ? row.starter : "Not included"}
+                            </span>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </article>
 
-              <button
-                onClick={() => onClaim("founding")}
-                className="w-full bg-[#F59E0B] text-black font-semibold text-[14px] py-[14px] rounded-full transition-opacity hover:opacity-90"
-              >
-                Join Founding Pack - ₹2,499 →
-              </button>
-              <p className="text-[12px] text-white/15 text-center mt-3 font-mono tracking-wide">
-                Collar + 6-month plan · Retail value ₹4,999 excl. GST
-              </p>
+                  <article className="snap-start shrink-0 w-[86vw] rounded-xl border border-[#F59E0B]/30 bg-[#131106] p-4">
+                    <p className="text-[12px] uppercase tracking-[1.5px] text-[#F59E0B] font-semibold mb-3">
+                      Founding Pack
+                    </p>
+                    <ul className="space-y-2.5">
+                      {comparisonRows.map((row) => {
+                        const included = row.founding !== "Not included";
+                        return (
+                          <li key={row.perk} className="flex items-start justify-between gap-3">
+                            <span className="text-[12px] text-white/70">{row.perk}</span>
+                            <span className={`text-[12px] font-medium text-right ${included ? "text-white/95" : "text-white/35"}`}>
+                              {included ? row.founding : "Not included"}
+                            </span>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </article>
+                </div>
+              </div>
+
+              <div className="hidden md:block rounded-xl border border-white/[0.06] overflow-hidden">
+                <div className="grid grid-cols-[minmax(0,1fr)_220px_220px] bg-white/[0.03]">
+                  <div className="px-5 py-3 text-[12px] uppercase tracking-[1.4px] text-white/40 font-semibold">
+                    Feature
+                  </div>
+                  <div className="px-5 py-3 text-[12px] uppercase tracking-[1.4px] text-[#E8622A] font-semibold text-center border-l border-white/[0.06]">
+                    Starter
+                  </div>
+                  <div className="px-5 py-3 text-[12px] uppercase tracking-[1.4px] text-[#F59E0B] font-semibold text-center border-l border-white/[0.06]">
+                    Founding
+                  </div>
+                </div>
+
+                {comparisonRows.map((row, idx) => {
+                  const starterIncluded = row.starter !== "Not included";
+                  const foundingIncluded = row.founding !== "Not included";
+                  return (
+                    <div
+                      key={row.perk}
+                      className={`grid grid-cols-[minmax(0,1fr)_220px_220px] ${idx < comparisonRows.length - 1 ? "border-t border-white/[0.06]" : ""}`}
+                    >
+                      <div className="px-5 py-3.5 text-[14px] text-white/80">{row.perk}</div>
+                      <div className="px-5 py-3.5 text-[13px] text-center border-l border-white/[0.06]">
+                        <span className={starterIncluded ? "text-white/85" : "text-white/35"}>
+                          {starterIncluded ? row.starter : "Not included"}
+                        </span>
+                      </div>
+                      <div className="px-5 py-3.5 text-[13px] text-center border-l border-white/[0.06]">
+                        <span className={foundingIncluded ? "text-white/95" : "text-white/35"}>
+                          {foundingIncluded ? row.founding : "Not included"}
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Simple by design — Steps */}
+      {/* Simple by design - Steps */}
       {/* NOTE: StepsSection is rendered separately in page.tsx, so order is controlled there */}
 
       {/* Pledge */}
@@ -598,7 +712,7 @@ export function FinalCTA({
                 key={line}
                 className="flex items-start gap-3 text-[13px] text-white/35 font-light leading-[1.7]"
               >
-                <span className="text-[#E8622A] shrink-0 mt-[2px]">—</span>
+                <span className="text-[#E8622A] shrink-0 mt-[2px]">-</span>
                 {line}
               </li>
             ))}
