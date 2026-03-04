@@ -2,6 +2,8 @@
 // src/app/(preorder)/preorder/page.tsx
 
 import { useState, useEffect, useCallback } from "react";
+import Link from "next/link";
+import { Instagram, Linkedin, Twitter } from "lucide-react";
 import {
   fetchActivity,
   fetchCohorts,
@@ -233,7 +235,7 @@ export default function PreorderPage() {
           />
 
           {/* Desktop nav links */}
-          <nav className="hidden md:flex items-center gap-10">
+          <nav className="hidden md:flex items-center gap-14">
             {navLinks.map(([label, href]) => (
               <a
                 key={label}
@@ -329,28 +331,86 @@ export default function PreorderPage() {
       <StepsSection />
       <FaqSection />
 
-      {/* Footer */}
-      <footer className="bg-[#0a0a0a] border-t border-white/[0.04] py-8 sm:py-10 px-6 sm:px-10 md:px-20">
-        <div className="max-w-[1100px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-0">
-          <img
-            src="/myperro-logo.png"
-            alt="MyPerro"
-            className="h-5 opacity-30"
-          />
-          <p className="text-[11px] sm:text-[12px] text-white/15 font-light">
-            © 2026 MyPerro. myperro.in
-          </p>
-          <div className="flex gap-5 sm:gap-6">
-            {["Privacy", "Terms", "Contact"].map((l) => (
-              <a
-                key={l}
-                href="#"
-                className="text-[11px] sm:text-[12px] text-white/20 hover:text-white/40 transition-colors font-light"
-              >
-                {l}
-              </a>
-            ))}
+      <footer className="relative mt-10 border-t border-white/[0.06] bg-[radial-gradient(90%_120%_at_50%_0%,rgba(232,98,42,0.12)_0%,rgba(10,10,10,0)_50%),#0a0a0a] overflow-visible">
+        <img
+          src="/footer-dog.svg"
+          alt=""
+          aria-hidden="true"
+          className="hidden lg:block absolute left-0 -top-24 h-[calc(100%+96px)] w-auto max-w-none opacity-90 pointer-events-none select-none"
+        />
+        <div className="w-full lg:w-[62%] ml-auto px-6 sm:px-10 md:px-20 py-10 sm:py-12">
+          <div className="flex items-center justify-between gap-5 pb-6 border-b border-white/[0.06]">
+            <img
+              src="/myperro-logo.png"
+              alt="MyPerro"
+              className="h-10 sm:h-12 w-auto object-contain opacity-90"
+            />
+            <div className="flex items-center gap-2">
+              {[
+                {
+                  href: "https://www.instagram.com/myperro.in/",
+                  icon: Instagram,
+                  label: "Instagram",
+                },
+                {
+                  href: "https://www.linkedin.com/company/myperroindia?trk=profile-position",
+                  icon: Linkedin,
+                  label: "LinkedIn",
+                },
+                { href: "https://x.com/MyPerro_", icon: Twitter, label: "X" },
+              ].map(({ href, icon: Icon, label }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-[#E8622A]/35 bg-[#E8622A]/10 text-[#E8622A] hover:bg-[#E8622A] hover:text-black transition-colors flex items-center justify-center"
+                >
+                  <Icon className="w-4 h-4 sm:w-5 sm:h-5" />
+                </a>
+              ))}
+            </div>
           </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-10 pt-7 pb-6">
+            <div>
+              <h3 className="text-[12px] uppercase tracking-[2px] font-semibold text-white/45 mb-4">
+                Company
+              </h3>
+              <ul className="space-y-2.5 text-[18px] sm:text-[20px] md:text-[18px] font-light">
+                <li><Link href="/about" className="text-white/85 hover:text-[#E8622A] transition-colors">About Us</Link></li>
+                <li><Link href="/about#mission" className="text-white/85 hover:text-[#E8622A] transition-colors">Our Mission</Link></li>
+                <li><Link href="/about" className="text-white/85 hover:text-[#E8622A] transition-colors">Careers</Link></li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-[12px] uppercase tracking-[2px] font-semibold text-white/45 mb-4">
+                Quick Links
+              </h3>
+              <ul className="space-y-2.5 text-[18px] sm:text-[20px] md:text-[18px] font-light">
+                <li><Link href="/" className="text-white/85 hover:text-[#E8622A] transition-colors">Smart Collar</Link></li>
+                <li><Link href="/blogs" className="text-white/85 hover:text-[#E8622A] transition-colors">Blogs</Link></li>
+                <li><Link href="/" className="text-white/85 hover:text-[#E8622A] transition-colors">Home</Link></li>
+              </ul>
+            </div>
+
+            <div className="col-span-2 md:col-span-1">
+              <h3 className="text-[12px] uppercase tracking-[2px] font-semibold text-white/45 mb-4">
+                Support
+              </h3>
+              <ul className="space-y-2.5 text-[18px] sm:text-[20px] md:text-[18px] font-light">
+                <li><Link href="/contact" className="text-white/85 hover:text-[#E8622A] transition-colors">Contact Us</Link></li>
+                <li><Link href="/preorder#faq" className="text-white/85 hover:text-[#E8622A] transition-colors">FAQs</Link></li>
+                <li><Link href="/about" className="text-white/85 hover:text-[#E8622A] transition-colors">Privacy Policy</Link></li>
+              </ul>
+            </div>
+          </div>
+
+          <p className="pt-5 border-t border-white/[0.06] text-[12px] text-white/35 font-light">
+            (c) {new Date().getFullYear()} MyPerro. All rights reserved.
+          </p>
         </div>
       </footer>
 

@@ -369,7 +369,10 @@ function FaqItem({ q, a }: { q: string; a: string }) {
 
 export function FaqSection() {
   return (
-    <section className="bg-[#0a0a0a] py-20 sm:py-28 px-6 sm:px-10 md:px-20 border-t border-white/[0.04]">
+    <section
+      id="faq"
+      className="bg-[#0a0a0a] py-20 sm:py-28 px-6 sm:px-10 md:px-20 border-t border-white/[0.04]"
+    >
       <div className="max-w-[1100px] mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-[280px_1fr] gap-10 sm:gap-16 md:gap-20">
           <div>
