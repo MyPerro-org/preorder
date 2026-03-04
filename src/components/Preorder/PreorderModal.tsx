@@ -496,11 +496,19 @@ export default function PreorderModal({
                 <span className={stateName ? "text-white" : "text-white/25"}>
                   {stateName || "Select state"}
                 </span>
-                <span
-                  className={`text-white/40 transition-transform ${isStateMenuOpen ? "rotate-180" : ""}`}
+                <svg
+                  viewBox="0 0 20 20"
+                  className={`w-4 h-4 text-white/45 transition-transform ${isStateMenuOpen ? "rotate-180" : ""}`}
+                  fill="none"
                 >
-                  v
-                </span>
+                  <path
+                    d="M5 7.5L10 12.5L15 7.5"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
               </button>
               {isStateMenuOpen && (
                 <div className="absolute z-30 top-full left-0 right-0 mt-1 rounded-xl border border-white/[0.1] bg-[#101010] shadow-[0_18px_40px_rgba(0,0,0,0.45)] max-h-56 overflow-y-auto">
@@ -591,7 +599,18 @@ export default function PreorderModal({
                     change
                   </p>
                 </div>
-                <span className="text-[#E8622A] shrink-0">OK</span>
+                <span className="shrink-0 inline-flex items-center gap-1.5 rounded-full border border-[#E8622A]/40 bg-[#E8622A]/10 px-2.5 py-1 text-[11px] font-semibold text-[#E8622A]">
+                  <svg viewBox="0 0 16 16" className="w-3 h-3" fill="none">
+                    <path
+                      d="M3.5 8.2L6.6 11.2L12.5 5.3"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                  Uploaded
+                </span>
               </div>
             ) : (
               <div className="flex flex-col items-center justify-center py-7 sm:py-8 gap-2">
