@@ -11,7 +11,7 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Alpha Pack ",
+  title: "Founding Pack ",
   description:
     "Reserve your MyPerro smart collar. India's first GPS pet collar.",
 };

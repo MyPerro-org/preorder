@@ -154,7 +154,7 @@ export function PetWall({
             </h2>
             <p className="text-[13px] sm:text-[14px] text-white/30 font-light leading-[1.9] max-w-[380px] mb-4">
               Every circle is a pet parent who said yes early.{" "}
-              <span className="text-[#E8622A]">Orange</span> for Starter,{" "}
+              <span className="text-[#E8622A]">Orange</span> for Scout,{" "}
               <span className="text-[#EFBF04]">Gold</span> for Founding. The
               pulsing one is waiting for you.
             </p>
@@ -497,7 +497,6 @@ export function FinalCTA({
                   Credited to final collar price
                 </p>
               </div>
-              <div className="flex-1" />
               <div className="border-t border-white/[0.08] p-6 sm:p-8">
                 <p className="text-[14px] font-semibold text-white/75 mb-4">
                   Includes:
@@ -521,6 +520,7 @@ export function FinalCTA({
                   ))}
                 </ul>
               </div>
+              <div className="flex-1" />
             </div>
 
             <div
@@ -560,7 +560,6 @@ export function FinalCTA({
                   Credited to final collar price
                 </p>
               </div>
-              <div className="flex-1" />
               <div className="border-t border-white/[0.08] p-6 sm:p-8">
                 <p className="text-[14px] font-semibold text-white/75 mb-4">
                   Everything in Scout, plus:
@@ -587,6 +586,7 @@ export function FinalCTA({
                   ))}
                 </ul>
               </div>
+              <div className="flex-1" />
             </div>
           </div>
 
@@ -599,7 +599,7 @@ export function FinalCTA({
                   </h4>
                   <div className="flex items-center gap-2">
                     <span className="inline-flex h-9 items-center justify-center px-3 rounded-full border border-[#E8622A]/30 bg-[#E8622A]/10 text-[#E8622A] text-[11px] font-semibold tracking-wide leading-none">
-                      Starter Rs 500
+                      Scout Rs 500
                     </span>
                     <span className="inline-flex h-9 items-center justify-center px-3 rounded-full border border-[#F59E0B]/35 bg-[#F59E0B]/10 text-[#F59E0B] text-[11px] font-semibold tracking-wide leading-none">
                       Founding Rs 2,499
@@ -613,7 +613,7 @@ export function FinalCTA({
                   </h4>
                   <div className="flex justify-center">
                     <span className="inline-flex h-9 items-center justify-center px-3 rounded-full border border-[#E8622A]/30 bg-[#E8622A]/10 text-[#E8622A] text-[11px] font-semibold tracking-wide leading-none">
-                      Starter Rs 500
+                      Scout Rs 500
                     </span>
                   </div>
                   <div className="flex justify-center">
@@ -707,7 +707,7 @@ export function FinalCTA({
                     Scout
                   </div>
                   <div className="px-5 py-3 text-[12px] uppercase tracking-[1.4px] text-[#F59E0B] font-semibold text-center border-l border-white/[0.06]">
-                    Alpha
+                    Founding
                   </div>
                 </div>
 
