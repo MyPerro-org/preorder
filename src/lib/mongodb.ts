@@ -30,7 +30,8 @@ if (process.env.NODE_ENV === 'development') {
 
 export async function connectToDatabase(): Promise<{ client: MongoClient; db: Db }> {
   const client = await clientPromise;
-  const db = client.db('myperro_waitlist'); // Database name
+  const dbName = process.env.MONGODB_DB_NAME || 'myperro_waitlist';
+  const db = client.db(dbName); // Database name
   return { client, db };
 }
 

@@ -1,9 +1,9 @@
 "use client";
 // src/components/Preorder/Sections.tsx
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FAQS, PLEDGE_LINES } from "@/lib/preorderData";
-import { ActivityEntry, CohortsData, CohortDog, timeAgo } from "@/lib/api";
+import { ActivityEntry, CohortsData, CohortDog, timeAgo, fetchActivity } from "@/lib/api";
 import { downloadWelcomeCard, shareWelcomeCard } from "@/lib/welcomeCard";
 
 export function SavingsSection() {
@@ -13,6 +13,8 @@ export function SavingsSection() {
 /* AaaAaa Pet Wall AaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaaAaa */
 const COHORT_SIZE = 20;
 
+const FOUNDING_AMOUNTS = new Set([2499, 249900]);
+
 function CircleGrid({
   dogs,
   onClaim,
@@ -20,7 +22,12 @@ function CircleGrid({
   dogs: CohortDog[];
   onClaim?: () => void;
 }) {
-  const nextPosition = dogs.length + 1;
+
+  // compute next available position in the cohort (first empty slot)
+  const takenPositions = new Set(dogs.map((d) => d.position));
+  const nextPosition = Array.from({ length: COHORT_SIZE }, (_, i) => i + 1).find(
+    (p) => !takenPositions.has(p)
+  );
 
   return (
     <div className="flex flex-wrap gap-3 sm:gap-4 mt-8 sm:mt-10">
@@ -28,12 +35,15 @@ function CircleGrid({
         const position = i + 1;
         const dog = dogs.find((d) => d.position === position);
         const isTaken = !!dog;
-        const isFounding = dog?.tier === "founding";
+        const isFounding =
+          dog?.tier === "founding" ||
+          (dog?.amount != null && FOUNDING_AMOUNTS.has(dog.amount));
         const isYours = position === nextPosition && !isTaken;
         const initials = dog?.dogName
           ? dog.dogName.slice(0, 2).toUpperCase()
           : null;
 
+        const nonFoundingBorder = "border-[3px] border-[#E8622A]";
         return (
           <div
             key={i}
@@ -48,7 +58,7 @@ function CircleGrid({
                   isTaken
                     ? isFounding
                       ? "bg-[#1a1000] border-[3px] border-[#EFBF04]"
-                      : "bg-[#2a1508] border-[3px] border-[#E8622A]"
+                      : `bg-[#2a1508] ${nonFoundingBorder}`
                     : isYours
                       ? "bg-transparent border-2 border-dashed border-[#E8622A]/50 po-spot-pulse cursor-pointer hover:border-[#E8622A]"
                       : "bg-transparent border border-dashed border-white/[0.1]"
@@ -82,9 +92,7 @@ function CircleGrid({
 
             {isTaken && (
               <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-[#1a1a1a] border border-white/[0.07] rounded-lg px-3 py-2 text-[11px] text-white/60 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-20">
-                <span
-                  className={isFounding ? "text-[#EFBF04]" : "text-[#E8622A]"}
-                >
+                <span className={isFounding ? "text-[#EFBF04]" : "text-[#E8622A]"}>
                   {dog?.dogName}
                 </span>{" "}
                 #{position}
@@ -123,9 +131,60 @@ export function PetWall({
   const [activeCohort, setActiveCohort] = useState(0);
   const [downloadingCard, setDownloadingCard] = useState(false);
   const [sharingCard, setSharingCard] = useState(false);
+  // removed global subscribersCount logic — outlines follow `tier === 'founding'` per-dog
   const cohort1Dogs = cohorts["cohort 1"] ?? [];
   const cohort2Dogs = cohorts["cohort 2"] ?? [];
+  const [enrichedCohorts, setEnrichedCohorts] = useState<CohortsData>({
+    "cohort 1": cohort1Dogs,
+    "cohort 2": cohort2Dogs,
+  });
   const cohort1Full = cohort1Dogs.length >= COHORT_SIZE;
+
+  // no global fetch here
+
+  useEffect(() => {
+    let mounted = true;
+    async function enrich() {
+      try {
+        const activity = await fetchActivity(200);
+        if (!mounted) return;
+        const map = new Map<string, ActivityEntry>();
+        for (const a of activity) {
+          map.set(`${a.cohortNumber}:${a.position}`, a);
+        }
+
+        const m1 = cohort1Dogs.map((d) => {
+          const key = `1:${d.position}`;
+          const a = map.get(key);
+          return {
+            ...d,
+            tier: a?.tier ?? d.tier,
+            amount: a?.amount ?? (d as any).amount,
+          } as CohortDog;
+        });
+        const m2 = cohort2Dogs.map((d) => {
+          const key = `2:${d.position}`;
+          const a = map.get(key);
+          return {
+            ...d,
+            tier: a?.tier ?? d.tier,
+            amount: a?.amount ?? (d as any).amount,
+          } as CohortDog;
+        });
+
+        setEnrichedCohorts({
+          "cohort 1": m1,
+          "cohort 2": m2,
+        });
+      } catch (err) {
+        // ignore — show baseline cohorts
+      }
+    }
+    enrich();
+    return () => {
+      mounted = false;
+    };
+  }, [cohort1Dogs, cohort2Dogs]);
 
   return (
     <section
@@ -136,6 +195,7 @@ export function PetWall({
         <p className="text-[12px] font-semibold tracking-[4px] uppercase text-white/20 mb-6 sm:mb-8">
           004 - THE PACK
         </p>
+        {/* debug info removed */}
         <div
           className={
             welcomeCard
@@ -248,10 +308,7 @@ export function PetWall({
           ))}
         </div>
 
-        <CircleGrid
-          dogs={activeCohort === 0 ? cohort1Dogs : cohort2Dogs}
-          onClaim={onClaim}
-        />
+        <CircleGrid dogs={activeCohort === 0 ? enrichedCohorts["cohort 1"] : enrichedCohorts["cohort 2"]} onClaim={onClaim} />
       </div>
     </section>
   );

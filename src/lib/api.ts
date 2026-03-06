@@ -55,6 +55,7 @@ export interface CohortDog {
   dogPhoto: string; // Cloudinary URL
   position: number;
   tier?: "starter" | "founding";
+  amount?: number; // payment amount — rupees (2499) or paise (249900)
 }
 
 export interface CohortsData {
