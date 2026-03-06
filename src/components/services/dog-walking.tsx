@@ -24,7 +24,7 @@ export default function DogServices() {
                     
                     initial={{ x: -100, opacity: 0 }}
                     animate={walkingInView ? { x: 0, opacity: 1 } : { x: -100, opacity: 0 }}
-                    transition={{ duration: 0.5, ease: "easeOut" }}
+                    transition={{ duration: 0.5, ease: "easeOut" as const }}
                     className="flex flex-col lg:flex-row my-6 md:my-10 bg-white p-4 sm:p-6 md:p-10 rounded-3xl text-secondary"
                 >
                     <div className="w-full lg:w-1/2 flex justify-center lg:justify-start mb-6 lg:mb-0">
@@ -70,7 +70,7 @@ export default function DogServices() {
                     
                     initial={{ x: 100, opacity: 0 }}
                     animate={boardingInView ? { x: 0, opacity: 1 } : { x: 100, opacity: 0 }}
-                    transition={{ duration: 0.8, ease: "easeOut" }}
+                    transition={{ duration: 0.8, ease: "easeOut" as const }}
                     className="flex flex-col-reverse lg:flex-row my-6 md:my-10 bg-white p-4 sm:p-6 md:p-10 rounded-3xl text-secondary"
                 >
                     <div className="w-full lg:w-1/2 lg:pr-8">
