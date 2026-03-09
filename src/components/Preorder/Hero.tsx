@@ -103,10 +103,7 @@ export default function Hero({
         </h1>
 
         <p className="text-[12px] sm:text-[15px] text-white/45 font-light leading-[1.85] max-w-[420px] mb-8 sm:mb-10">
-          Our smart collar tells you where your dog is in real time, with
-          geo-fencing that alerts you before they're even out of sight and a
-          high accuracy. The Founding Pack unlocks exclusive perks for the
-          people who get here early.
+          Our smart collar shows you your dog’s location in real time, with high-accuracy tracking and geo-fencing alerts before they’re even out of sight. The Founding Pack unlocks exclusive perks for early supporters.
         </p>
 
         {/* CTA */}
