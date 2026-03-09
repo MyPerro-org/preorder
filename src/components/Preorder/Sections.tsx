@@ -685,7 +685,7 @@ export function FinalCTA({
               <div className="md:hidden">
                 <p className="text-[11px] text-white/35 mb-3">Swipe plans</p>
                 <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-                  <article className="snap-start shrink-0 w-[86vw] rounded-xl border border-[#E8622A]/25 bg-[#12100d] p-4">
+                  <article className="snap-start shrink-0 w-[calc(100vw-48px)] rounded-xl border border-[#E8622A]/25 bg-[#12100d] p-4">
                     <p className="text-[12px] uppercase tracking-[1.5px] text-[#E8622A] font-semibold mb-3">
                       Scout Pack
                     </p>
@@ -717,7 +717,7 @@ export function FinalCTA({
                     </ul>
                   </article>
 
-                  <article className="snap-start shrink-0 w-[86vw] rounded-xl border border-[#F59E0B]/30 bg-[#131106] p-4">
+                  <article className="snap-start shrink-0 w-[calc(100vw-48px)] rounded-xl border border-[#F59E0B]/30 bg-[#131106] p-4">
                     <p className="text-[12px] uppercase tracking-[1.5px] text-[#F59E0B] font-semibold mb-3">
                       Founding Pack
                     </p>
