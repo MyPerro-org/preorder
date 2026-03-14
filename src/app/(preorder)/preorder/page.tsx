@@ -3,6 +3,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
+import posthog from "posthog-js";
 import { Instagram, Linkedin, Twitter } from "lucide-react";
 import {
   fetchActivity,
@@ -122,6 +123,7 @@ export default function PreorderPage() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [savedFormData, setSavedFormData] = useState({});
+  const [hasTrackedPageView, setHasTrackedPageView] = useState(false);
 
   const loadAll = useCallback(async () => {
     const [act, coh, sp] = await Promise.all([
@@ -133,6 +135,15 @@ export default function PreorderPage() {
     setCohorts(coh);
     setSpots(sp);
   }, []);
+
+  useEffect(() => {
+    if (!hasTrackedPageView) {
+      posthog.capture("preorder_page_view", {
+        page: "/preorder",
+      });
+      setHasTrackedPageView(true);
+    }
+  }, [hasTrackedPageView]);
 
   useEffect(() => {
     loadAll();
@@ -184,6 +195,11 @@ export default function PreorderPage() {
 
   const handleSuccess = useCallback(
     async (data: PaymentResult) => {
+      posthog.capture("preorder_lead_confirmed", {
+        tier: data.tier,
+        cohortNumber: data.cohortNumber,
+        cohortPosition: data.cohortPosition,
+      });
       setResult(data);
       setModalOpen(false);
       setSuccOpen(true);
@@ -203,7 +219,16 @@ export default function PreorderPage() {
   const lastClaimed = spots.lastClaimedAt
     ? timeAgo(spots.lastClaimedAt)
     : "recently";
-  const openModal = (tier: PackTier = "starter") => {
+  const openModal = (
+    tier: PackTier = "starter",
+    source: "hero" | "pet_wall" | "final_cta" | "unknown" = "unknown",
+  ) => {
+    posthog.capture("preorder_modal_opened", {
+      tier,
+      source,
+      spots_remaining: spots.remaining,
+      spots_claimed: spots.claimed,
+    });
     setSelectedTier(tier);
     setModalOpen(true);
     setMobileMenuOpen(false);
@@ -261,11 +286,14 @@ export default function PreorderPage() {
 
             {/* Reserve button */}
             <button
-              onClick={() =>
+              onClick={() => {
+                posthog.capture("preorder_nav_reserve_click", {
+                  spots_remaining: spots.remaining,
+                });
                 document
                   .getElementById("reserve")
-                  ?.scrollIntoView({ behavior: "smooth" })
-              }
+                  ?.scrollIntoView({ behavior: "smooth" });
+              }}
               className="bg-[#E8622A] text-white font-semibold text-[11px] sm:text-[12px] tracking-wide px-4 sm:px-5 lg:px-6 py-[8px] sm:py-[10px] rounded-full transition-opacity hover:opacity-90 whitespace-nowrap"
             >
               Reserve Spot
@@ -273,7 +301,13 @@ export default function PreorderPage() {
 
             {/* Hamburger — visible below lg */}
             <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              onClick={() => {
+                const next = !mobileMenuOpen;
+                setMobileMenuOpen(next);
+                posthog.capture("preorder_mobile_menu_toggle", {
+                  is_open: next,
+                });
+              }}
               className="lg:hidden flex flex-col gap-[5px] p-1 ml-1"
               aria-label="Menu"
             >
@@ -321,16 +355,19 @@ export default function PreorderPage() {
         lastClaimed={lastClaimed}
         teaserPet={teaserPet}
         onTeaserChange={setTeaserPet}
-        onClaim={() => openModal("starter")}
+        onClaim={() => openModal("starter", "hero")}
       />
       <TickerStrip />
       <PerksSection />
       <PetWall
         cohorts={cohorts}
-        onClaim={() => openModal("starter")}
+        onClaim={() => openModal("starter", "pet_wall")}
         welcomeCard={result}
       />
-      <FinalCTA remaining={spots.remaining} onClaim={openModal} />
+      <FinalCTA
+        remaining={spots.remaining}
+        onClaim={(tier) => openModal(tier, "final_cta")}
+      />
       <StepsSection />
       <FaqSection />
 
