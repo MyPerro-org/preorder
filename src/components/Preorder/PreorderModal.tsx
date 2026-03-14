@@ -3,6 +3,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Script from "next/script";
+import posthog from "posthog-js";
 import { COLLAR_COLOURS, REFERRAL_SOURCES } from "@/lib/preorderData";
 import { submitOrder, confirmPayment, validateReferralCode } from "@/lib/api";
 
@@ -138,9 +139,23 @@ export default function PreorderModal({
     null,
   );
   const latestReferralCodeRef = useRef("");
+  const hasTrackedFormStartRef = useRef(false);
+  const payStageRef = useRef<"submit" | "payment" | "verify">("submit");
   const filteredStates = INDIA_STATES.filter((s) =>
     s.toLowerCase().includes(stateQuery.trim().toLowerCase()),
   );
+
+  const capturePreorder = (
+    event: string,
+    props: Record<string, unknown> = {},
+  ) => {
+    posthog.capture(event, {
+      tier,
+      has_referral: hasReferral,
+      ref_status: refStatus,
+      ...props,
+    });
+  };
 
   useEffect(() => {
     if (open) setDogsname(seedPet || "");
@@ -150,10 +165,33 @@ export default function PreorderModal({
     if (!open) {
       setPayState("idle");
       setErrorMsg("");
+      hasTrackedFormStartRef.current = false;
+      payStageRef.current = "submit";
       if (referralCheckTimeoutRef.current)
         clearTimeout(referralCheckTimeoutRef.current);
     }
   }, [open]);
+
+  useEffect(() => {
+    if (!open) return;
+    capturePreorder("preorder_form_viewed");
+  }, [open]);
+
+  useEffect(() => {
+    if (!open || hasTrackedFormStartRef.current) return;
+    const started =
+      Boolean(name.trim()) ||
+      Boolean(dogsname.trim()) ||
+      Boolean(mail.trim()) ||
+      Boolean(phoneno.trim()) ||
+      Boolean(address.trim()) ||
+      Boolean(city.trim()) ||
+      Boolean(stateName.trim()) ||
+      Boolean(dogPhoto);
+    if (!started) return;
+    hasTrackedFormStartRef.current = true;
+    capturePreorder("preorder_form_started");
+  }, [open, name, dogsname, mail, phoneno, address, city, stateName, dogPhoto]);
 
   useEffect(() => {
     if (open && savedFormData) {
@@ -200,11 +238,18 @@ export default function PreorderModal({
     if (!file) return;
     if (file.size > 5 * 1024 * 1024) {
       setErrorMsg("Photo must be under 5MB.");
+      capturePreorder("preorder_photo_upload_failed", {
+        reason: "file_too_large",
+      });
       return;
     }
     setDogPhoto(file);
     setPhotoPreview(URL.createObjectURL(file));
     setErrorMsg("");
+    capturePreorder("preorder_photo_uploaded", {
+      file_type: file.type,
+      file_size_kb: Math.round(file.size / 1024),
+    });
   };
 
   const handleRefCode = (val: string) => {
@@ -218,15 +263,27 @@ export default function PreorderModal({
       setRefStatus("idle");
       return;
     }
+    capturePreorder("preorder_referral_check_started", {
+      code_length: trimmed.length,
+    });
     setRefStatus("checking");
     referralCheckTimeoutRef.current = setTimeout(async () => {
       try {
         const v = await validateReferralCode(trimmed);
         if (latestReferralCodeRef.current !== trimmed) return;
         setRefStatus(v.valid ? "ok" : "err");
+        capturePreorder(
+          v.valid
+            ? "preorder_referral_valid"
+            : "preorder_referral_invalid",
+          { code_length: trimmed.length },
+        );
       } catch {
         if (latestReferralCodeRef.current !== trimmed) return;
         setRefStatus("err");
+        capturePreorder("preorder_referral_error", {
+          code_length: trimmed.length,
+        });
       }
     }, 350);
   };
@@ -243,25 +300,41 @@ export default function PreorderModal({
       setShake(true);
       setTimeout(() => setShake(false), 450);
       setErrorMsg("Please fill in all required fields.");
+      capturePreorder("preorder_validation_failed", {
+        reason: "required_fields_missing",
+      });
       return;
     }
     if (!dogPhoto) {
       setShake(true);
       setTimeout(() => setShake(false), 450);
       setErrorMsg("Please upload a photo of your dog.");
+      capturePreorder("preorder_validation_failed", {
+        reason: "dog_photo_missing",
+      });
       return;
     }
     if (hasReferral && refCode.trim()) {
       if (refStatus === "checking") {
         setErrorMsg("Checking referral code. Please wait.");
+        capturePreorder("preorder_validation_failed", {
+          reason: "referral_validation_pending",
+        });
         return;
       }
       if (refStatus !== "ok") {
         setErrorMsg("Please enter a valid referral code or uncheck referral.");
+        capturePreorder("preorder_validation_failed", {
+          reason: "invalid_referral_code",
+        });
         return;
       }
     }
+    capturePreorder("preorder_submit_attempt", {
+      has_referral_code_input: Boolean(refCode.trim()),
+    });
     setPayState("submitting");
+    payStageRef.current = "submit";
     setErrorMsg("");
     try {
       const formData = new FormData();
@@ -281,12 +354,16 @@ export default function PreorderModal({
       const submissionId = submitRes?.data?._id ?? submitRes?.data?.data_id;
       if (!submissionId)
         throw new Error("Submission ID missing from /submit response.");
+      capturePreorder("preorder_submission_created", {
+        submission_id: submissionId,
+      });
 
       const razorpayKey = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID;
       if (!razorpayKey)
         throw new Error("Razorpay key is missing in frontend env.");
 
       setPayState("paying");
+      payStageRef.current = "payment";
       await new Promise<void>((resolve, reject) => {
         if (!isRazorpayReady || !(window as any).Razorpay) {
           reject(
@@ -304,13 +381,20 @@ export default function PreorderModal({
           theme: { color: tierConfig.accentColor },
           modal: {
             confirm_close: true,
-            ondismiss: () => reject(new Error("cancelled")),
+            ondismiss: () => {
+              capturePreorder("preorder_payment_cancelled");
+              reject(new Error("cancelled"));
+            },
           },
           handler: async (response: any) => {
             try {
               setPayState("verifying");
+              payStageRef.current = "verify";
               if (!response?.razorpay_payment_id)
                 throw new Error("Missing payment id from Razorpay.");
+              capturePreorder("preorder_payment_authorized", {
+                razorpay_payment_id: response.razorpay_payment_id,
+              });
               const data = await confirmPayment({
                 submissionId,
                 razorpay_payment_id: response.razorpay_payment_id,
@@ -331,8 +415,16 @@ export default function PreorderModal({
                 referralCode: data.data.referralCode,
                 tier: resolvedTier,
               });
+              capturePreorder("preorder_payment_success", {
+                tier: resolvedTier,
+                cohort_number: data.data.cohortNumber,
+                cohort_position: data.data.cohortPosition,
+              });
               resolve();
             } catch (error: any) {
+              capturePreorder("preorder_payment_verification_failed", {
+                reason: error?.message || "verification_failed",
+              });
               reject(
                 new Error(
                   error?.message ||
@@ -342,11 +434,18 @@ export default function PreorderModal({
             }
           },
         });
+        capturePreorder("preorder_payment_popup_opened", {
+          amount: tierConfig.amount,
+        });
         rzp.open();
       });
     } catch (err: any) {
       if (err.message === "cancelled") setPayState("idle");
       else {
+        capturePreorder("preorder_submit_failed", {
+          stage: payStageRef.current,
+          message: err?.message || "unknown_error",
+        });
         setPayState("error");
         setErrorMsg(err.message || "Something went wrong. Please try again.");
       }
@@ -375,7 +474,12 @@ export default function PreorderModal({
 
       <div
         className="fixed inset-0 z-[800] bg-[#0a0a0a]/95 backdrop-blur-xl flex items-end sm:items-center justify-center p-0 sm:p-6"
-        onClick={(e) => e.target === e.currentTarget && !isLoading && onClose()}
+        onClick={(e) => {
+          if (e.target === e.currentTarget && !isLoading) {
+            capturePreorder("preorder_modal_closed", { close_type: "backdrop" });
+            onClose();
+          }
+        }}
       >
         <div
           className={`bg-[#111] border border-white/[0.07] sm:rounded-2xl rounded-t-2xl p-6 sm:p-10 w-full sm:max-w-[520px] relative max-h-[92vh] overflow-y-auto po-modal-in ${shake ? "po-shake" : ""}`}
@@ -384,7 +488,14 @@ export default function PreorderModal({
           <div className="w-10 h-1 rounded-full bg-white/10 mx-auto mb-5 sm:hidden" />
 
           <button
-            onClick={() => !isLoading && onClose()}
+            onClick={() => {
+              if (!isLoading) {
+                capturePreorder("preorder_modal_closed", {
+                  close_type: "close_icon",
+                });
+                onClose();
+              }
+            }}
             disabled={isLoading}
             className="absolute top-4 right-4 sm:top-5 sm:right-5 text-white/20 hover:text-white/55 transition-colors text-[18px] disabled:opacity-20"
           >
@@ -635,6 +746,10 @@ export default function PreorderModal({
               <div
                 onClick={() => {
                   if (isLoading) return;
+                  const next = !hasReferral;
+                  capturePreorder("preorder_referral_toggle", {
+                    enabled: next,
+                  });
                   setHasReferral((v) => !v);
                   setRefCode("");
                   setRefStatus("idle");
