@@ -64,7 +64,7 @@ export default function HeroCollar() {
         {isInView && (
           // @ts-ignore
           <model-viewer
-            src="/dogCollar.glb"
+            src="/dogCollar1.glb"
             alt="A 3D model of a dog collar"
             loading="lazy"
             camera-controls
